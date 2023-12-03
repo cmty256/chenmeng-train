@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 修改日志文件路径 -->
+    <property name="PATH" value="./log/member"></property>
+
+    <!-- 控制台输出的 Appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 控制台输出的日志格式 -->
+            <!-- %d{mm:ss.SSS}: 表示输出日期和时间，其中 mm 表示分钟，ss 表示秒，SSS 表示毫秒。-->
+            <!-- %highlight(%-5level): 使用颜色高亮显示日志级别，%-5level 表示左对齐并且占据至少 5 个字符的日志级别。-->
+            <!-- %blue(%-30logger{30}:%-4line): 使用蓝色显示 logger（Logger）的名称，%-30logger{30} 表示左对齐并且占据至少 30 个字符的 Logger 名称，%-4line 表示左对齐并且占据至少 4 个字符的日志行号。-->
+            <!-- %thread: 输出线程名。-->
+            <!-- %green(%-18X{LOG_ID}): 使用绿色显示名为 LOG_ID 的 MDC（Mapped Diagnostic Context）变量，%-18X{LOG_ID} 表示左对齐并且占据至少 18 个字 符的 LOG_ID。-->
+            <!-- %msg: 输出日志消息。-->
+            <!-- %n: 换行符。-->
+            <Pattern>%d{mm:ss.SSS} %highlight(%-5level) %blue(%-30logger{30}:%-4line) %thread %green(%-18X{LOG_ID}) %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 追踪日志的滚动文件 Appender -->
+    <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径 -->
+        <file>${PATH}/trace.log</file>
+        <!-- 基于时间的滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 滚动日志文件的文件名模式 -->
+            <FileNamePattern>${PATH}/trace.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!-- 基于时间和大小的触发策略 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志布局格式 -->
+        <layout>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-50logger{50}:%-4line %green(%-18X{LOG_ID}) %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- 错误日志的滚动文件 Appender -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径 -->
+        <file>${PATH}/error.log</file>
+        <!-- 基于时间的滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 滚动日志文件的文件名模式 -->
+            <FileNamePattern>${PATH}/error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!-- 基于时间和大小的触发策略 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志布局格式 -->
+        <layout>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-50logger{50}:%-4line %green(%-18X{LOG_ID}) %msg%n</pattern>
+        </layout>
+        <!-- 过滤器，只捕获 ERROR 级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- ERROR 级别的根日志配置 -->
+    <root level="ERROR">
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+
+    <!-- TRACE 级别的根日志配置 -->
+    <root level="TRACE">
+        <appender-ref ref="TRACE_FILE"/>
+    </root>
+
+    <!-- INFO 级别的根日志配置 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
