@@ -16,13 +16,13 @@
 
     <modules>
         <module>member</module>
+        <module>common</module>
     </modules>
 
     <packaging>pom</packaging>
 
     <properties>
         <java.version>17</java.version>
-        <!--        <springboot.version>3.0.0</springboot.version>-->
         <spring-cloud.version>2022.0.0</spring-cloud.version>
     </properties>
 
@@ -45,6 +45,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.8.10</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.chenmeng</groupId>
+                <artifactId>common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <!-- 集成mybatis-->
