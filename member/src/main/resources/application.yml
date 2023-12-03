@@ -1,0 +1,17 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /member
+spring:
+  application:
+    name: member
+  # 开启热部署（更改文件后，自动重启）
+  devtools:
+    restart:
+      enabled: true
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/chenmeng_train
+    username: root
+    password: 123456
