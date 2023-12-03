@@ -1,2 +1,12 @@
 server:
   port: 8000
+spring:
+  cloud:
+    gateway:
+      routes:
+        # 路由转发，将/member/...的请求转发到member模块
+        - id: member
+          predicates:
+            - Path=/member/**
+          uri: http://127.0.0.1:8001
+
