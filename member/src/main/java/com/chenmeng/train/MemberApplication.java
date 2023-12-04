@@ -1,5 +1,6 @@
 package com.chenmeng.train;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
  * @author 沉梦
  */
 @SpringBootApplication
+@MapperScan("com.chenmeng.train.*.mapper")
 public class MemberApplication {
 
     private static final Logger LOG = LoggerFactory.getLogger(MemberApplication.class);
