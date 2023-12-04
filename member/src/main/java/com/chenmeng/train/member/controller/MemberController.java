@@ -1,9 +1,12 @@
 package com.chenmeng.train.member.controller;
 
 import com.chenmeng.train.common.resp.CommonResp;
+import com.chenmeng.train.member.model.dto.MemberRegisterReq;
 import com.chenmeng.train.member.service.MemberService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +29,17 @@ public class MemberController {
         CommonResp<Integer> commonResp = new CommonResp<>();
         commonResp.setContent(count);
         return commonResp;
+    }
+
+    /**
+     * 注册
+     * @param req
+     * @return
+     */
+    @PostMapping("/register")
+    public CommonResp<Long> register(@Valid MemberRegisterReq req) {
+        long register = memberService.register(req);
+        return new CommonResp<>(register);
     }
 
 }

@@ -18,6 +18,8 @@ spring:
 # mybatis xml路径
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 # 日志级别
 logging:
   level:
