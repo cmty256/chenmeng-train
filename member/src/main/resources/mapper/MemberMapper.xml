@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chenmeng.train.member.mapper.MemberMapper">
-  <resultMap id="BaseResultMap" type="com.chenmeng.train.member.domain.Member">
+  <resultMap id="BaseResultMap" type="com.chenmeng.train.member.model.entity.Member">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     id, mobile
   </sql>
-  <select id="selectByExample" parameterType="com.chenmeng.train.member.domain.MemberExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.chenmeng.train.member.model.entity.MemberExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -90,17 +90,17 @@
     delete from member
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.chenmeng.train.member.domain.MemberExample">
+  <delete id="deleteByExample" parameterType="com.chenmeng.train.member.model.entity.MemberExample">
     delete from member
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chenmeng.train.member.domain.Member">
+  <insert id="insert" parameterType="com.chenmeng.train.member.model.entity.Member">
     insert into member (id, mobile)
     values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.chenmeng.train.member.domain.Member">
+  <insert id="insertSelective" parameterType="com.chenmeng.train.member.model.entity.Member">
     insert into member
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -119,7 +119,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.chenmeng.train.member.domain.MemberExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.chenmeng.train.member.model.entity.MemberExample" resultType="java.lang.Long">
     select count(*) from member
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -147,7 +147,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chenmeng.train.member.domain.Member">
+  <update id="updateByPrimaryKeySelective" parameterType="com.chenmeng.train.member.model.entity.Member">
     update member
     <set>
       <if test="mobile != null">
@@ -156,7 +156,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.chenmeng.train.member.domain.Member">
+  <update id="updateByPrimaryKey" parameterType="com.chenmeng.train.member.model.entity.Member">
     update member
     set mobile = #{mobile,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}

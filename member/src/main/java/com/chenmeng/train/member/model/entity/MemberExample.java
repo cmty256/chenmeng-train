@@ -1,4 +1,4 @@
-package com.chenmeng.train.member.domain;
+package com.chenmeng.train.member.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;

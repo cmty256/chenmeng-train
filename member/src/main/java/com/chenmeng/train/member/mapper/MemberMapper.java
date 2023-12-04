@@ -1,7 +1,7 @@
 package com.chenmeng.train.member.mapper;
 
-import com.chenmeng.train.member.domain.Member;
-import com.chenmeng.train.member.domain.MemberExample;
+import com.chenmeng.train.member.model.entity.Member;
+import com.chenmeng.train.member.model.entity.MemberExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.chenmeng.train.member.domain;
+package com.chenmeng.train.member.model.entity;
 
 /**
  * @author 沉梦

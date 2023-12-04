@@ -1,5 +1,6 @@
 package com.chenmeng.train.member.controller;
 
+import com.chenmeng.train.common.resp.CommonResp;
 import com.chenmeng.train.member.service.MemberService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,11 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("/count")
-    public int count() {
-        return memberService.count();
+    public CommonResp<Integer> count() {
+        int count = memberService.count();
+        CommonResp<Integer> commonResp = new CommonResp<>();
+        commonResp.setContent(count);
+        return commonResp;
     }
 
 }
