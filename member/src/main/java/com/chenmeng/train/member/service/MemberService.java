@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.chenmeng.train.common.exception.BusinessException;
 import com.chenmeng.train.common.exception.BusinessExceptionEnum;
+import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.member.mapper.MemberMapper;
 import com.chenmeng.train.member.model.dto.MemberRegisterReq;
 import com.chenmeng.train.member.model.entity.Member;
@@ -38,7 +39,7 @@ public class MemberService {
         }
 
         Member member = new Member();
-        member.setId(3L);
+        member.setId(SnowUtil.getSnowflakeNextId());
         member.setMobile(mobile);
         memberMapper.insert(member);
         return member.getId();
