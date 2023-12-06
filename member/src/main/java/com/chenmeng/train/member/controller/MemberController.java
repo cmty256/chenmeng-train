@@ -2,13 +2,11 @@ package com.chenmeng.train.member.controller;
 
 import com.chenmeng.train.common.resp.CommonResp;
 import com.chenmeng.train.member.model.dto.MemberRegisterReq;
+import com.chenmeng.train.member.model.dto.MemberSendCodeReq;
 import com.chenmeng.train.member.service.MemberService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 会员控制器
@@ -42,4 +40,14 @@ public class MemberController {
         return new CommonResp<>(register);
     }
 
+    /**
+     * 发送验证码，含手机号注册功能
+     * @param req
+     * @return
+     */
+    @PostMapping("/send-code")
+    public CommonResp<Long> sendCode(@Valid @RequestBody MemberSendCodeReq req) {
+        memberService.sendCode(req);
+        return new CommonResp<>();
+    }
 }
