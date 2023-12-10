@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class PassengerExample {
     protected String orderByClause;

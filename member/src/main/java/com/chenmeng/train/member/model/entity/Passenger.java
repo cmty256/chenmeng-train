@@ -3,7 +3,7 @@ package com.chenmeng.train.member.model.entity;
 import java.util.Date;
 
 /**
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class Passenger {
     private Long id;

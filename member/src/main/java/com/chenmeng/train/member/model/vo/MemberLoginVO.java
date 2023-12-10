@@ -1,7 +1,7 @@
 package com.chenmeng.train.member.model.vo;
 
 /**
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class MemberLoginVO {
     private Long id;

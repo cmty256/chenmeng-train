@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 /**
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class MemberSendCodeReq {
 

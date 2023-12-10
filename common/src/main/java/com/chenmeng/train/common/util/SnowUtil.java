@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 /**
  * 封装hutool雪花算法工具类
  *
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class SnowUtil {
 

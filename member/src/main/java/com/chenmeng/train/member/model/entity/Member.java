@@ -1,7 +1,7 @@
 package com.chenmeng.train.member.model.entity;
 
 /**
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class Member {
 

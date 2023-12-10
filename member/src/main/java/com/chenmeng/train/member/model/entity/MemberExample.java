@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 沉梦
+ * @author 沉梦听雨
  */
 public class MemberExample {
     protected String orderByClause;
