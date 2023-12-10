@@ -30,6 +30,8 @@ public class LoginMemberFilter implements Ordered, GlobalFilter {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        LOG.info("****** 网关：全局登录校验过滤器 开始 ******");
+
         String path = exchange.getRequest().getURI().getPath();
 
         // 排除不需要拦截的请求
@@ -61,6 +63,7 @@ public class LoginMemberFilter implements Ordered, GlobalFilter {
         boolean validate = JwtUtil.validate(token);
         if (validate) {
             LOG.info("token有效，放行该请求");
+            LOG.info("****** 网关：全局登录校验过滤器 结束 ******");
             return chain.filter(exchange);
         } else {
             LOG.warn("token无效，请求被拦截");
@@ -68,6 +71,7 @@ public class LoginMemberFilter implements Ordered, GlobalFilter {
                     .getResponse()
                     .setStatusCode(HttpStatus.UNAUTHORIZED);
 
+            LOG.info("****** 网关：全局登录校验过滤器 结束 ******");
             return exchange.getResponse().setComplete();
         }
 
