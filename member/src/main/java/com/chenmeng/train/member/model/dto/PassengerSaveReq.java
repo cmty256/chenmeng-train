@@ -39,7 +39,7 @@ public class PassengerSaveReq {
     private String type;
 
     /**
-     * 新增时间
+     * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
