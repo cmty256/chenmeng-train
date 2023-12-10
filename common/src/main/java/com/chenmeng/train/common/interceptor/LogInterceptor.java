@@ -1,4 +1,4 @@
-package com.chenmeng.train.interceptor;
+package com.chenmeng.train.common.interceptor;
 
 import cn.hutool.core.util.RandomUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
- * 日志拦截器
+ * 日志拦截器 -- 拦截器比 AOP 的优先级高
  *
  * @author 沉梦听雨
  */
