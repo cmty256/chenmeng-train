@@ -46,8 +46,10 @@ import router from "@/router";
 export default defineComponent({
   name: "the-sider-view",
   setup() {
+    // 响应式数组变量设置
     const selectedKeys = ref([]);
 
+    // 路由监听, 实现菜单同步激活
     watch(() => router.currentRoute.value.path, (newValue) => {
       console.log('watch', newValue);
       selectedKeys.value = [];

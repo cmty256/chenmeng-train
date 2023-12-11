@@ -62,8 +62,10 @@ export default defineComponent({
   setup() {
     // 因为header只是显示，不会修改member，所以声明成普通变量就可以，不需要响应式变量
     let member = store.state.member;
+    // 响应式数组变量设置
     const selectedKeys = ref([]);
 
+    // 路由监听, 实现菜单同步激活
     watch(() => router.currentRoute.value.path, (newValue) => {
       console.log('watch', newValue);
       selectedKeys.value = [];
