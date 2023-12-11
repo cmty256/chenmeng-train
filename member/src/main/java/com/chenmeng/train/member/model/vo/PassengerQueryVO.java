@@ -4,15 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 沉梦听雨
  **/
-public class PassengerQueryVO {
+public class PassengerQueryVO implements Serializable {
 
     /**
-     * id
+     * id -- 使用序列化注解, 将指定的 Long 类型数据转换成 String 类型返回给前端
+     * 解决前后端交互 Long 类型精度丢失的问题
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
