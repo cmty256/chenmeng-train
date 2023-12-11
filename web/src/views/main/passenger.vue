@@ -10,6 +10,7 @@
            :pagination="pagination"
            @change="handleTableChange"
            :loading="loading">
+    <!-- column: 代表当前列名, record: 代表当前行数据   -->
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
         <a-space>
@@ -64,7 +65,7 @@ export default defineComponent({
   setup() {
     const PASSENGER_TYPE_ARRAY = window.PASSENGER_TYPE_ARRAY;
     const visible = ref(false);
-    // 对 reactive 数组重新赋值, 会让其失去响应式特性; 所以这里使用 ref 创建响应式变量
+    // 对 reactive 数组重新赋值, 会让其失去响应式特性（单个属性赋值不会）; 所以这里使用 ref 创建响应式变量
     let passenger = ref({
       id: undefined,
       memberId: undefined,
@@ -105,11 +106,13 @@ export default defineComponent({
     ];
 
     const onAdd = () => {
+      // 重置 passenger 对象, 对话框表单出现时确保是空对象
       passenger.value = {};
       visible.value = true;
     };
 
     const onEdit = (record) => {
+      // 使用工具类复制当前行数据对象, 为了编辑表单可看到数据并且不和行数据双向绑定, 避免在编辑提交前列表数据被修改
       passenger.value = window.Tool.copy(record);
       visible.value = true;
     };
