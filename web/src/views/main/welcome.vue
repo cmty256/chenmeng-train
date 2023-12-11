@@ -1,5 +1,4 @@
 <template>
-  <!--  <p style="font-size: 20px; font-weight: bold">欢迎使用甲蛙12306售票系统</p>-->
   <div style="border: 4px solid orange;
               border-radius: 4px;
               padding: 10px; ">

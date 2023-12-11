@@ -6,12 +6,14 @@ const routes = [{
     path: '/login',
     component: () => import('../views/login.vue')
 }, {
+    // 一级路由
     path: '/',
     component: () => import('../views/main.vue'),
     // 设置登录开关
     meta: {
         loginRequire: true
     },
+    // 二级路由, 子路由, path 会和父路由的 path 拼接
     children: [{
         path: 'welcome',
         component: () => import('../views/main/welcome.vue'),
@@ -35,6 +37,7 @@ const routes = [{
         component: () => import('../views/main/admin.vue')
     }]
 }, {
+    // 根路由, 访问根域名的时候会重定向到欢迎页
     path: '',
     redirect: '/welcome'
 }];
