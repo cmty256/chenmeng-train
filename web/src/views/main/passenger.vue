@@ -31,6 +31,7 @@
       </template>
     </template>
   </a-table>
+<!--对话框内包含表单 -->
   <a-modal v-model:visible="visible" title="乘车人" @ok="handleOk"
            ok-text="确认" cancel-text="取消">
     <a-form :model="passenger" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
@@ -41,6 +42,7 @@
         <a-input v-model:value="passenger.idCard" />
       </a-form-item>
       <a-form-item label="旅客类型">
+        <!-- 下拉框设置 -->
         <a-select v-model:value="passenger.type">
           <a-select-option v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code" :value="item.code">
             {{item.desc}}
