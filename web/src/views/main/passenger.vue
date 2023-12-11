@@ -13,6 +13,7 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
         <a-space>
+          <!-- 删除增加确认框, 避免误操作-->
           <a-popconfirm
               title="删除后不可恢复，确认删除?"
               @confirm="onDelete(record)"
@@ -63,6 +64,7 @@ export default defineComponent({
   setup() {
     const PASSENGER_TYPE_ARRAY = window.PASSENGER_TYPE_ARRAY;
     const visible = ref(false);
+    // 对 reactive 数组重新赋值, 会让其失去响应式特性; 所以这里使用 ref 创建响应式变量
     let passenger = ref({
       id: undefined,
       memberId: undefined,
@@ -152,6 +154,7 @@ export default defineComponent({
       }
       loading.value = true;
       axios.get("/member/passenger/query-list", {
+        // axios的Get请求带参数固定放在params对象里
         params: {
           page: param.page,
           size: param.size
@@ -178,6 +181,7 @@ export default defineComponent({
       });
     };
 
+    // 生命周期, 钩子函数
     onMounted(() => {
       handleQuery({
         page: 1,
