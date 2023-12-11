@@ -23,6 +23,11 @@ public class PassengerController {
     @Resource
     private PassengerService passengerService;
 
+    /**
+     * 新增保存 或 编辑保存 接口
+     * @param saveReq
+     * @return
+     */
     @PostMapping("/save")
     public CommonResp<Integer> count(@Valid @RequestBody PassengerSaveReq saveReq) {
         passengerService.save(saveReq);

@@ -40,6 +40,7 @@ public class PassengerSaveReq {
 
     /**
      * 创建时间 -- 时区必须设置
+     * 注解格式化前端传过来的数据
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
