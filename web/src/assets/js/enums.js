@@ -1,3 +1,5 @@
+// src 下创建的 js 文件, 打包之后内容在界面不会被看到 -- 在 main.js 文件中引入;
+// public.js 目录创建的 js 文件, 打包之后会出现在 dist 目录下, F12 可以看到内容。
 PASSENGER_TYPE={ADULT:{code:"1",desc:"成人"},CHILD:{code:"2",desc:"儿童"},STUDENT:{code:"3",desc:"学生"}};
 TRAIN_TYPE={G:{code:"G",desc:"高铁",priceRate:"1.2"},D:{code:"D",desc:"动车",priceRate:"1"},K:{code:"K",desc:"快速",priceRate:"0.8"}};
 SEAT_TYPE={YDZ:{code:"1",desc:"一等座",price:"0.4"},EDZ:{code:"2",desc:"二等座",price:"0.3"},RW:{code:"3",desc:"软卧",price:"0.6"},YW:{code:"4",desc:"硬卧",price:"0.5"}};

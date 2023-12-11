@@ -25,6 +25,7 @@
         </a-space>
       </template>
       <template v-else-if="column.dataIndex === 'type'">
+        <!-- 表格类型列名 - 枚举值的使用 -->
         <span v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code">
           <span v-if="item.code === record.type">
             {{item.desc}}
@@ -46,6 +47,7 @@
       <a-form-item label="旅客类型">
         <!-- 下拉框设置 -->
         <a-select v-model:value="passenger.type">
+          <!-- 下拉框枚举值的使用, 前端枚举展示的使用 -->
           <a-select-option v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code" :value="item.code">
             {{item.desc}}
           </a-select-option>
@@ -63,6 +65,7 @@ import axios from "axios";
 export default defineComponent({
   name: "passenger-view",
   setup() {
+    // 声明枚举值变量
     const PASSENGER_TYPE_ARRAY = window.PASSENGER_TYPE_ARRAY;
     const visible = ref(false);
     // 对 reactive 数组重新赋值, 会让其失去响应式特性（单个属性赋值不会）; 所以这里使用 ref 创建响应式变量
