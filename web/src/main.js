@@ -8,6 +8,8 @@ import * as Icons from '@ant-design/icons-vue';
 import axios from 'axios';
 import './assets/js/enums';
 
+// main.js 是整个项目的入口文件，主要负责初始化和配置整个 Vue 应用程序
+
 const app = createApp(App);
 app.use(Antd).use(store).use(router).mount('#app');
 
