@@ -8,9 +8,9 @@ import com.chenmeng.train.common.exception.BusinessExceptionEnum;
 import com.chenmeng.train.common.util.JwtUtil;
 import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.member.mapper.MemberMapper;
-import com.chenmeng.train.member.model.dto.MemberLoginReq;
-import com.chenmeng.train.member.model.dto.MemberRegisterReq;
-import com.chenmeng.train.member.model.dto.MemberSendCodeReq;
+import com.chenmeng.train.member.model.dto.MemberLoginDTO;
+import com.chenmeng.train.member.model.dto.MemberRegisterDTO;
+import com.chenmeng.train.member.model.dto.MemberSendCodeDTO;
 import com.chenmeng.train.member.model.entity.Member;
 import com.chenmeng.train.member.model.entity.MemberExample;
 import com.chenmeng.train.member.model.vo.MemberLoginVO;
@@ -44,7 +44,7 @@ public class MemberService {
         return Math.toIntExact(memberMapper.countByExample(null));
     }
 
-    public long register(MemberRegisterReq req) {
+    public long register(MemberRegisterDTO req) {
         String mobile = req.getMobile();
         Member memberDB = selectByMobile(mobile);
 
@@ -59,7 +59,7 @@ public class MemberService {
         return member.getId();
     }
 
-    public void sendCode(MemberSendCodeReq req) {
+    public void sendCode(MemberSendCodeDTO req) {
         String mobile = req.getMobile();
         Member memberDB = selectByMobile(mobile);
 
@@ -85,7 +85,7 @@ public class MemberService {
         LOG.info("对接短信通道");
     }
 
-    public MemberLoginVO login(MemberLoginReq req) {
+    public MemberLoginVO login(MemberLoginDTO req) {
         String mobile = req.getMobile();
         String code = req.getCode();
         Member memberDB = selectByMobile(mobile);

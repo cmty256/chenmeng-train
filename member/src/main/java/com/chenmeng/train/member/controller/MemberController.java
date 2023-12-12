@@ -1,9 +1,9 @@
 package com.chenmeng.train.member.controller;
 
 import com.chenmeng.train.common.resp.CommonResp;
-import com.chenmeng.train.member.model.dto.MemberLoginReq;
-import com.chenmeng.train.member.model.dto.MemberRegisterReq;
-import com.chenmeng.train.member.model.dto.MemberSendCodeReq;
+import com.chenmeng.train.member.model.dto.MemberLoginDTO;
+import com.chenmeng.train.member.model.dto.MemberRegisterDTO;
+import com.chenmeng.train.member.model.dto.MemberSendCodeDTO;
 import com.chenmeng.train.member.model.vo.MemberLoginVO;
 import com.chenmeng.train.member.service.MemberService;
 import jakarta.annotation.Resource;
@@ -36,7 +36,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/register")
-    public CommonResp<Long> register(@Valid MemberRegisterReq req) {
+    public CommonResp<Long> register(@Valid MemberRegisterDTO req) {
         long register = memberService.register(req);
         return new CommonResp<>(register);
     }
@@ -47,7 +47,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/send-code")
-    public CommonResp<Long> sendCode(@Valid @RequestBody MemberSendCodeReq req) {
+    public CommonResp<Long> sendCode(@Valid @RequestBody MemberSendCodeDTO req) {
         memberService.sendCode(req);
         return new CommonResp<>();
     }
@@ -58,7 +58,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/login")
-    public CommonResp<MemberLoginVO> login(@Valid @RequestBody MemberLoginReq req) {
+    public CommonResp<MemberLoginVO> login(@Valid @RequestBody MemberLoginDTO req) {
         MemberLoginVO resp = memberService.login(req);
         return new CommonResp<>(resp);
     }

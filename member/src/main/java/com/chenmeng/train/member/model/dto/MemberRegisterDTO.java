@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 /**
  * @author 沉梦听雨
  */
-public class MemberRegisterReq {
+public class MemberRegisterDTO {
 
     @NotBlank(message = "【手机号】不能为空")
     private String mobile;

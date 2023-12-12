@@ -5,7 +5,7 @@ import com.chenmeng.train.common.req.PageReq;
 /**
  * @author 沉梦听雨
  **/
-public class PassengerQueryReq extends PageReq {
+public class PassengerQueryDTO extends PageReq {
 
     private Long memberId;
 

@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author 沉梦听雨
  */
-public class PassengerSaveReq {
+public class PassengerSaveDTO {
 
     /**
      * id

@@ -7,8 +7,8 @@ import com.chenmeng.train.common.context.LoginMemberContext;
 import com.chenmeng.train.common.resp.PageResp;
 import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.member.mapper.PassengerMapper;
-import com.chenmeng.train.member.model.dto.PassengerQueryReq;
-import com.chenmeng.train.member.model.dto.PassengerSaveReq;
+import com.chenmeng.train.member.model.dto.PassengerQueryDTO;
+import com.chenmeng.train.member.model.dto.PassengerSaveDTO;
 import com.chenmeng.train.member.model.entity.Passenger;
 import com.chenmeng.train.member.model.entity.PassengerExample;
 import com.chenmeng.train.member.model.vo.PassengerQueryVO;
@@ -34,7 +34,7 @@ public class PassengerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PassengerService.class);
 
-    public void save(PassengerSaveReq req) {
+    public void save(PassengerSaveDTO req) {
         DateTime now = DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
         if (ObjectUtil.isNull(passenger.getId())) {
@@ -49,7 +49,7 @@ public class PassengerService {
         }
     }
 
-    public PageResp<PassengerQueryVO> queryList(PassengerQueryReq req) {
+    public PageResp<PassengerQueryVO> queryList(PassengerQueryDTO req) {
         // 创建一个 PassengerExample 对象
         PassengerExample passengerExample = new PassengerExample();
         // 实现 id 降序

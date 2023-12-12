@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 /**
  * @author 沉梦听雨
  */
-public class MemberSendCodeReq {
+public class MemberSendCodeDTO {
 
     @NotBlank(message = "【手机号】不能为空")
     @Pattern(regexp = "^1\\d{10}$", message = "手机号码格式错误")
