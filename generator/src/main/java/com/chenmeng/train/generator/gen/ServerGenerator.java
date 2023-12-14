@@ -11,9 +11,7 @@ import org.dom4j.io.SAXReader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 自定义代码生成器
@@ -25,7 +23,7 @@ public class ServerGenerator {
     /**
      * 服务路径，代码会在该路径下生成
      */
-    static String serverPath = "[module]/src/main/java/com/chenmeng/train/[module]/";
+    static String serverPath = "[module]/src/main/java/com/chenmeng/train/[module]";
 
     /**
      * pom路径
@@ -67,21 +65,28 @@ public class ServerGenerator {
         String do_main = tableName.getText().replaceAll("_", "-");
         // 表中文名
         String tableNameCn = DbUtil.getTableComment(tableName.getText());
+        // 获取表字段实体工具类列表
         List<Field> fieldList = DbUtil.getColumnByTableName(tableName.getText());
+        // 获取去重后的所有表字段的 Java 类型
+        Set<String> typeSet = getJavaTypes(fieldList);
 
         // 组装参数
         Map<String, Object> param = new HashMap<>();
         param.put("module", module);
-        param.put("tableNameCn", tableNameCn);
         param.put("Domain", Domain);
         param.put("domain", domain);
         param.put("do_main", do_main);
+        param.put("tableNameCn", tableNameCn);
+        param.put("fieldList", fieldList);
+        param.put("typeSet", typeSet);
         System.out.println("组装参数：" + param);
 
         // 生成业务类
-        gen(Domain, param, "service", "service");
+        gen(Domain, param, "/service", "service");
         // 生成 Controller 类
-        gen(Domain, param, "controller", "controller");
+        gen(Domain, param, "/controller", "controller");
+        // 生成 saveDTO 请求参数实体类
+        gen(Domain, param, "/model/dto", "saveDTO");
     }
 
     private static void setDataSourceForDbUtil(Document document) {
@@ -96,11 +101,11 @@ public class ServerGenerator {
         DbUtil.password = password.getText();
     }
 
-    private static void gen(String Domain, Map<String, Object> param, String packageName, String target) throws IOException, TemplateException {
+    private static void gen(String Domain, Map<String, Object> param, String packetPath, String target) throws IOException, TemplateException {
         // 初始化配置
         FreemarkerUtil.initConfig(target + ".ftl");
         // 生成文件路径
-        String toPath = serverPath + packageName + "/";
+        String toPath = serverPath + packetPath + "/";
         // 在生成文件路径下新建一个文件
         new File(toPath).mkdirs();
         // 生成文件名
@@ -112,7 +117,7 @@ public class ServerGenerator {
         FreemarkerUtil.generator(repositoryRootPath, param);
     }
 
-   private static String getGeneratorPath() throws DocumentException {
+    private static String getGeneratorPath() throws DocumentException {
         SAXReader saxReader = new SAXReader();
         Map<String, String> map = new HashMap<>(1);
         map.put("pom", "http://maven.apache.org/POM/4.0.0");
@@ -122,5 +127,17 @@ public class ServerGenerator {
         Node node = document.selectSingleNode("//pom:configurationFile");
         System.out.println(node.getText());
         return node.getText();
+    }
+
+    /**
+     * 获取所有表字段的 Java 类型，并且使用 Set 去重
+     */
+    private static Set<String> getJavaTypes(List<Field> fieldList) {
+        Set<String> set = new HashSet<>();
+        for (int i = 0; i < fieldList.size(); i++) {
+            Field field = fieldList.get(i);
+            set.add(field.getJavaType());
+        }
+        return set;
     }
 }

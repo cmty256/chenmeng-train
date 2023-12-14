@@ -2,6 +2,7 @@ package com.chenmeng.train.member.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class PassengerSaveDTO {
     /**
      * 会员id
      */
+    @NotNull(message = "【会员id】不能为空")
     private Long memberId;
 
     /**
@@ -39,14 +41,13 @@ public class PassengerSaveDTO {
     private String type;
 
     /**
-     * 创建时间 -- 时区必须设置
-     * 注解格式化前端传过来的数据
+     * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     /**
-     * 修改时间 -- 时区必须设置
+     * 修改时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
