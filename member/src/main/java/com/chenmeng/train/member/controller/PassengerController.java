@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * passenger前端控制器
+ * 乘车人前端控制器
  *
  * @author 沉梦听雨
  **/

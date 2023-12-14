@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * passenger表业务类
+ * 乘车人表业务类
  *
  * @author 沉梦听雨
  **/
