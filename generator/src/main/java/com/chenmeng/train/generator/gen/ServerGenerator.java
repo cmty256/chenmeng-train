@@ -69,8 +69,10 @@ public class ServerGenerator {
         param.put("do_main", do_main);
         System.out.println("组装参数：" + param);
 
-        // 生成服务
+        // 生成业务类
         gen(Domain, param, "service", "service");
+        // 生成 Controller 类
+        gen(Domain, param, "controller", "controller");
     }
 
     private static void gen(String Domain, Map<String, Object> param, String packageName, String target) throws IOException, TemplateException {
@@ -82,7 +84,7 @@ public class ServerGenerator {
         new File(toPath).mkdirs();
         // 生成文件名
         String FileName = target.substring(0, 1).toUpperCase() + target.substring(1);
-        // 生成文件的仓库根路径
+        // 生成文件的仓库根路径加文件后缀
         String repositoryRootPath = toPath + Domain + FileName + ".java";
         System.out.println("开始生成：" + repositoryRootPath);
         // 生成文件

@@ -3,25 +3,25 @@ package com.chenmeng.train.member.controller;
 import com.chenmeng.train.common.context.LoginMemberContext;
 import com.chenmeng.train.common.resp.CommonResp;
 import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.member.model.dto.PassengerQueryDTO;
-import com.chenmeng.train.member.model.dto.PassengerSaveDTO;
-import com.chenmeng.train.member.model.vo.PassengerQueryVO;
-import com.chenmeng.train.member.service.PassengerService;
+import com.chenmeng.train.member.model.dto.${Domain}QueryDTO;
+import com.chenmeng.train.member.model.dto.${Domain}SaveDTO;
+import com.chenmeng.train.member.model.vo.${Domain}QueryVO;
+import com.chenmeng.train.member.service.${Domain}Service;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * passenger前端控制器
+ * ${do_main}前端控制器
  *
  * @author 沉梦听雨
  **/
 @RestController
-@RequestMapping("/passenger")
-public class PassengerController {
+@RequestMapping("/${do_main}")
+public class ${Domain}Controller {
 
     @Resource
-    private PassengerService passengerService;
+    private ${Domain}Service ${domain}Service;
 
     /**
      * 新增保存 或 编辑保存 接口
@@ -29,8 +29,8 @@ public class PassengerController {
      * @return
      */
     @PostMapping("/save")
-    public CommonResp<Integer> count(@Valid @RequestBody PassengerSaveDTO saveReq) {
-        passengerService.save(saveReq);
+    public CommonResp<Integer> count(@Valid @RequestBody ${Domain}SaveDTO saveReq) {
+        ${domain}Service.save(saveReq);
         return new CommonResp<>();
     }
 
@@ -41,9 +41,9 @@ public class PassengerController {
      * @return
      */
     @GetMapping("/query-list")
-    public CommonResp<PageResp<PassengerQueryVO>> queryList(@Valid PassengerQueryDTO req) {
+    public CommonResp<PageResp<${Domain}QueryVO>> queryList(@Valid ${Domain}QueryDTO req) {
         req.setMemberId(LoginMemberContext.getId());
-        PageResp<PassengerQueryVO> list = passengerService.queryList(req);
+        PageResp<${Domain}QueryVO> list = ${domain}Service.queryList(req);
         return new CommonResp<>(list);
     }
 
@@ -54,7 +54,7 @@ public class PassengerController {
      */
     @DeleteMapping("/delete/{id}")
     public CommonResp<Object> delete(@PathVariable Long id) {
-        passengerService.delete(id);
+        ${domain}Service.delete(id);
         return new CommonResp<>();
     }
 }
