@@ -21,6 +21,16 @@ import java.util.*;
 public class ServerGenerator {
 
     /**
+     * 只读选项，相当于设置访问权限
+     */
+    static boolean readOnly = false;
+
+    /**
+     * vue文件路径
+     */
+    static String vuePath = "web/src/views/main/";
+
+    /**
      * 服务路径，代码会在该路径下生成
      */
     static String serverPath = "[module]/src/main/java/com/chenmeng/train/[module]";
@@ -79,6 +89,7 @@ public class ServerGenerator {
         param.put("tableNameCn", tableNameCn);
         param.put("fieldList", fieldList);
         param.put("typeSet", typeSet);
+        param.put("readOnly", readOnly);
         System.out.println("组装参数：" + param);
 
         // 生成业务类
@@ -91,18 +102,17 @@ public class ServerGenerator {
         gen(Domain, param, "/model/dto", "queryDTO");
         // 生成 queryVO 分页列表查询视图
         gen(Domain, param, "/model/vo", "queryVO");
+
+        // 生成 Vue 文件
+        genVue(do_main, param);
     }
 
-    private static void setDataSourceForDbUtil(Document document) {
-        Node connectionURL = document.selectSingleNode("//@connectionURL");
-        Node userId = document.selectSingleNode("//@userId");
-        Node password = document.selectSingleNode("//@password");
-        System.out.println("url: " + connectionURL.getText());
-        System.out.println("user: " + userId.getText());
-        System.out.println("password: " + password.getText());
-        DbUtil.url = connectionURL.getText();
-        DbUtil.user = userId.getText();
-        DbUtil.password = password.getText();
+    private static void genVue(String do_main, Map<String, Object> param) throws IOException, TemplateException {
+        FreemarkerUtil.initConfig("vue.ftl");
+        new File(vuePath).mkdirs();
+        String repositoryRootPath = vuePath + "/" + do_main + ".vue";
+        System.out.println("开始生成：" + repositoryRootPath);
+        FreemarkerUtil.generator(repositoryRootPath, param);
     }
 
     private static void gen(String Domain, Map<String, Object> param, String packetPath, String target) throws IOException, TemplateException {
@@ -131,6 +141,18 @@ public class ServerGenerator {
         Node node = document.selectSingleNode("//pom:configurationFile");
         System.out.println(node.getText());
         return node.getText();
+    }
+
+    private static void setDataSourceForDbUtil(Document document) {
+        Node connectionURL = document.selectSingleNode("//@connectionURL");
+        Node userId = document.selectSingleNode("//@userId");
+        Node password = document.selectSingleNode("//@password");
+        System.out.println("url: " + connectionURL.getText());
+        System.out.println("user: " + userId.getText());
+        System.out.println("password: " + password.getText());
+        DbUtil.url = connectionURL.getText();
+        DbUtil.user = userId.getText();
+        DbUtil.password = password.getText();
     }
 
     /**

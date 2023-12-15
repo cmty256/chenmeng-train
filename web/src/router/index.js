@@ -20,21 +20,6 @@ const routes = [{
     }, {
         path: 'passenger',
         component: () => import('../views/main/passenger.vue'),
-    }, {
-        path: 'ticket',
-        component: () => import('../views/main/ticket.vue'),
-    }, {
-        path: 'order',
-        component: () => import('../views/main/order.vue'),
-    }, {
-        path: 'my-ticket',
-        component: () => import('../views/main/my-ticket.vue')
-    }, {
-        path: 'seat',
-        component: () => import('../views/main/seat.vue')
-    }, {
-        path: 'admin',
-        component: () => import('../views/main/admin.vue')
     }]
 }, {
     // 根路由, 访问根域名的时候会重定向到欢迎页
