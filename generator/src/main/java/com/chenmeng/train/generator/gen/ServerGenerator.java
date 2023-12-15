@@ -89,6 +89,8 @@ public class ServerGenerator {
         gen(Domain, param, "/model/dto", "saveDTO");
         // 生成 queryDTO 分页列表查询参数实体类
         gen(Domain, param, "/model/dto", "queryDTO");
+        // 生成 queryVO 分页列表查询视图
+        gen(Domain, param, "/model/vo", "queryVO");
     }
 
     private static void setDataSourceForDbUtil(Document document) {

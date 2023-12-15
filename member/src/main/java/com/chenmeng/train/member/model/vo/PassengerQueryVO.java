@@ -1,19 +1,20 @@
 package com.chenmeng.train.member.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
 /**
+ * 分页列表查询视图
+ *
  * @author 沉梦听雨
  **/
 public class PassengerQueryVO {
 
     /**
-     * id -- 使用序列化注解, 将指定的 Long 类型数据转换成 String 类型返回给前端
-     * 解决前后端交互 Long 类型精度丢失的问题
+     * id
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
@@ -40,13 +41,13 @@ public class PassengerQueryVO {
     private String type;
 
     /**
-     * 创建时间 -- 时区必须设置
+     * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
-     * 修改时间 -- 时区必须设置
+     * 修改时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
