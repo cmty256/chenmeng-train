@@ -1,12 +1,12 @@
-package com.chenmeng.train.member.controller;
+package com.chenmeng.train.${module}.controller;
 
 import com.chenmeng.train.common.context.LoginMemberContext;
 import com.chenmeng.train.common.resp.CommonResp;
 import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.member.model.dto.${Domain}QueryDTO;
-import com.chenmeng.train.member.model.dto.${Domain}SaveDTO;
-import com.chenmeng.train.member.model.vo.${Domain}QueryVO;
-import com.chenmeng.train.member.service.${Domain}Service;
+import com.chenmeng.train.${module}.model.dto.${Domain}QueryDTO;
+import com.chenmeng.train.${module}.model.dto.${Domain}SaveDTO;
+import com.chenmeng.train.${module}.model.vo.${Domain}QueryVO;
+import com.chenmeng.train.${module}.service.${Domain}Service;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
