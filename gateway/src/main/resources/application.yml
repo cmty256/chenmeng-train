@@ -22,4 +22,9 @@ spring:
           predicates:
             - Path=/member/**
           uri: http://127.0.0.1:8001
+        # 路由转发，将/business/...的请求转发了business模块
+        - id: business
+          predicates:
+            - Path=/business/**
+          uri: http://127.0.0.1:8002
 
