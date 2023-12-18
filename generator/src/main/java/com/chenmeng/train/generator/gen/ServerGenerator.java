@@ -92,6 +92,7 @@ public class ServerGenerator {
         param.put("readOnly", readOnly);
         System.out.println("组装参数：" + param);
 
+        // TODO 可能需要更改的地方
         // 生成业务类
         gen(Domain, param, "/service", "service");
         // 生成 Controller 类
