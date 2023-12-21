@@ -36,6 +36,11 @@
           <MenuUnfoldOutlined /> &nbsp; 列车车厢
          </router-link>
       </a-menu-item>
+      <a-menu-item key="/train-seat">
+         <router-link to="/train-seat">
+          <MenuUnfoldOutlined /> &nbsp; 列车座位
+         </router-link>
+      </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>

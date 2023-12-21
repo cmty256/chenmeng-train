@@ -2,6 +2,7 @@ package com.chenmeng.train.generator.gen;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.chenmeng.train.business.enums.SeatColEnum;
 import com.chenmeng.train.business.enums.SeatTypeEnum;
 import com.chenmeng.train.business.enums.TrainTypeEnum;
 import com.chenmeng.train.member.model.enums.PassengerTypeEnum;
@@ -43,6 +44,7 @@ public class EnumGenerator {
             toJson(PassengerTypeEnum.class, bufferObject, bufferArray);
             toJson(TrainTypeEnum.class, bufferObject, bufferArray);
             toJson(SeatTypeEnum.class, bufferObject, bufferArray);
+            toJson(SeatColEnum.class, bufferObject, bufferArray);
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);
