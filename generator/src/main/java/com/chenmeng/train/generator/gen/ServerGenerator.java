@@ -26,9 +26,14 @@ public class ServerGenerator {
     static boolean readOnly = false;
 
     /**
-     * vue文件路径
+     * vue文件路径（web会员模块）
      */
-    static String vuePath = "web/src/views/main/";
+    // static String vuePath = "web/src/views/main/";
+
+    /**
+     * vue文件路径（控台管理模块）
+     */
+    static String vuePath = "admin/src/views/main/";
 
     /**
      * 服务路径，代码会在该路径下生成
@@ -96,7 +101,9 @@ public class ServerGenerator {
         // 生成业务类
         gen(Domain, param, "/service", "service");
         // 生成 Controller 类
-        gen(Domain, param, "/controller", "controller");
+        // gen(Domain, param, "/controller", "controller");
+        // 生成 admin 目录下的 Controller 类
+        gen(Domain, param, "/controller/admin", "adminController");
         // 生成 saveDTO 请求参数实体类
         gen(Domain, param, "/model/dto", "saveDTO");
         // 生成 queryDTO 分页列表查询参数实体类
