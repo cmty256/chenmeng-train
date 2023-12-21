@@ -31,7 +31,7 @@
 
         <!-- domain类的位置 targetProject是相对pom.xml的路径-->
         <javaModelGenerator targetProject="../member/src/main/java"
-                            targetPackage="com.chenmeng.train.member.domain"/>
+                            targetPackage="com.chenmeng.train.member.model.entity"/>
 
         <!-- mapper xml的位置 targetProject是相对pom.xml的路径 -->
         <sqlMapGenerator targetProject="../member/src/main/resources"
