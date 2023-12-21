@@ -2,6 +2,7 @@ package com.chenmeng.train.generator.gen;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.chenmeng.train.business.enums.TrainTypeEnum;
 import com.chenmeng.train.member.model.enums.PassengerTypeEnum;
 
 import java.io.FileOutputStream;
@@ -20,7 +21,15 @@ import java.util.List;
  **/
 public class EnumGenerator {
 
-    static String path = "web/src/assets/js/enums.js";
+    /**
+     * web会员模块路径
+     */
+    // static String path = "web/src/assets/js/enums.js";
+
+    /**
+     * admin管理控台模块路径
+     */
+    static String path = "admin/src/assets/js/enums.js";
 
     public static void main(String[] args) {
         // 生成数据 1：对象
@@ -31,6 +40,7 @@ public class EnumGenerator {
         try {
             // TODO 可能需要更改的地方
             toJson(PassengerTypeEnum.class, bufferObject, bufferArray);
+            toJson(TrainTypeEnum.class, bufferObject, bufferArray);
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);
