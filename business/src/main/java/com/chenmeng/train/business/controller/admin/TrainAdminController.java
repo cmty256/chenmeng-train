@@ -10,6 +10,8 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 车次表前端控制器
  *
@@ -54,5 +56,16 @@ public class TrainAdminController {
     public CommonResp<Object> delete(@PathVariable Long id) {
         trainService.delete(id);
         return new CommonResp<>();
+    }
+
+    /**
+     * 获取所有车次信息列表 - 根据车次编号升序
+     *
+     * @return
+     */
+    @GetMapping("/query-all")
+    public CommonResp<List<TrainQueryVO>> queryList() {
+        List<TrainQueryVO> list = trainService.queryAll();
+        return new CommonResp<>(list);
     }
 }

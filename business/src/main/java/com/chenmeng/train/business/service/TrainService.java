@@ -3,15 +3,14 @@ package com.chenmeng.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
-import com.chenmeng.train.common.context.LoginMemberContext;
-import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.business.mapper.TrainMapper;
 import com.chenmeng.train.business.model.dto.TrainQueryDTO;
 import com.chenmeng.train.business.model.dto.TrainSaveDTO;
 import com.chenmeng.train.business.model.entity.Train;
 import com.chenmeng.train.business.model.entity.TrainExample;
 import com.chenmeng.train.business.model.vo.TrainQueryVO;
+import com.chenmeng.train.common.resp.PageResp;
+import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -84,5 +83,13 @@ public class TrainService {
 
     public void delete(Long id) {
         trainMapper.deleteByPrimaryKey(id);
+    }
+
+    public List<TrainQueryVO> queryAll() {
+        TrainExample trainExample = new TrainExample();
+        // 根据车次编号升序
+        trainExample.setOrderByClause("code asc");
+        List<Train> trainList = trainMapper.selectByExample(trainExample);
+        return BeanUtil.copyToList(trainList, TrainQueryVO.class);
     }
 }
