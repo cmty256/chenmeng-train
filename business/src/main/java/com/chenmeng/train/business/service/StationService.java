@@ -85,10 +85,6 @@ public class StationService {
         stationMapper.deleteByPrimaryKey(id);
     }
 
-    /**
-     * 查询所有车站信息
-     * @return
-     */
     public List<StationQueryVO> queryAll() {
         StationExample stationExample = new StationExample();
         // 根据站名拼音升序

@@ -10,6 +10,8 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 车站表前端控制器
  *
@@ -24,6 +26,7 @@ public class StationAdminController {
 
     /**
      * 新增保存 或 编辑保存 接口
+     *
      * @param saveReq
      * @return
      */
@@ -47,6 +50,7 @@ public class StationAdminController {
 
     /**
      * 根据 id 删除车站接口
+     *
      * @param id
      * @return
      */
@@ -54,5 +58,16 @@ public class StationAdminController {
     public CommonResp<Object> delete(@PathVariable Long id) {
         stationService.delete(id);
         return new CommonResp<>();
+    }
+
+    /**
+     * 查询所有车站信息列表
+     *
+     * @return
+     */
+    @GetMapping("/query-all")
+    public CommonResp<List<StationQueryVO>> queryList() {
+        List<StationQueryVO> list = stationService.queryAll();
+        return new CommonResp<>(list);
     }
 }
