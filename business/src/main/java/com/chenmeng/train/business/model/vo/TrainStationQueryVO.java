@@ -8,7 +8,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 /**
- * 分页列表查询视图
+ * 分页/列表查询视图
  *
  * @author 沉梦听雨
  **/

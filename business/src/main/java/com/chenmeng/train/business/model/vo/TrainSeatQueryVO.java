@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
- * 分页列表查询视图
+ * 分页/列表查询视图
  *
  * @author 沉梦听雨
  **/
