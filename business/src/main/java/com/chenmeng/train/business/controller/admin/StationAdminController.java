@@ -11,7 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 车站前端控制器
+ * 车站表前端控制器
  *
  * @author 沉梦听雨
  **/
@@ -34,7 +34,7 @@ public class StationAdminController {
     }
 
     /**
-     * 乘车人分页列表查询接口
+     * 车站分页列表查询接口
      *
      * @param req
      * @return
@@ -46,7 +46,7 @@ public class StationAdminController {
     }
 
     /**
-     * 根据 id 删除乘车人接口
+     * 根据 id 删除车站接口
      * @param id
      * @return
      */

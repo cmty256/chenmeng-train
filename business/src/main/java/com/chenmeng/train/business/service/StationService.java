@@ -84,4 +84,16 @@ public class StationService {
     public void delete(Long id) {
         stationMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * 查询所有车站信息
+     * @return
+     */
+    public List<StationQueryVO> queryAll() {
+        StationExample stationExample = new StationExample();
+        // 根据站名拼音升序
+        stationExample.setOrderByClause("name_pinyin asc");
+        List<Station> stationList = stationMapper.selectByExample(stationExample);
+        return BeanUtil.copyToList(stationList, StationQueryVO.class);
+    }
 }

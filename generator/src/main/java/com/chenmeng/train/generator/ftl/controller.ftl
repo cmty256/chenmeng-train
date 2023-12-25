@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * ${tableNameCn}前端控制器
+ * ${tableNameCn}表前端控制器
  *
  * @author 沉梦听雨
  **/
@@ -35,7 +35,7 @@ public class ${Domain}Controller {
     }
 
     /**
-     * 乘车人分页列表查询接口
+     * ${tableNameCn}分页列表查询接口
      *
      * @param req
      * @return
@@ -48,7 +48,7 @@ public class ${Domain}Controller {
     }
 
     /**
-     * 根据 id 删除乘车人接口
+     * 根据 id 删除${tableNameCn}接口
      * @param id
      * @return
      */
