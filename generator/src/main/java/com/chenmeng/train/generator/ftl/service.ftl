@@ -54,7 +54,7 @@ public class ${Domain}Service {
         // 实现 id 降序
         ${domain}Example.setOrderByClause("id desc");
 
-        // 创建一个 ${Domain}Example.Criteria 对象
+        // 创建一个 ${Domain}Example.Criteria 对象（类似 MP 的条件构造器）
         ${Domain}Example.Criteria criteria = ${domain}Example.createCriteria();
 
         LOG.info("查询页码：{}", req.getPage());

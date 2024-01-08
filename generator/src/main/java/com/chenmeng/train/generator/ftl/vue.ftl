@@ -76,6 +76,7 @@ import axios from "axios";
 
 export default defineComponent({
   name: "${do_main}-view",
+
   setup() {
     <#list fieldList as field>
     <#if field.enums>

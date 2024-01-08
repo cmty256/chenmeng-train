@@ -7,9 +7,23 @@ import com.chenmeng.train.common.req.PageReq;
  **/
 public class TrainStationQueryDTO extends PageReq {
 
+    /**
+     * 车次编号
+     */
+    private String trainCode;
+
+    public String getTrainCode() {
+        return trainCode;
+    }
+
+    public void setTrainCode(String trainCode) {
+        this.trainCode = trainCode;
+    }
+
     @Override
     public String toString() {
         return "TrainStationQueryDTO{" +
+                "trainCode='" + trainCode + '\'' +
                 "} " + super.toString();
     }
 }

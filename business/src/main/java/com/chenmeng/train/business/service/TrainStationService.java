@@ -50,11 +50,13 @@ public class TrainStationService {
     public PageResp<TrainStationQueryVO> queryList(TrainStationQueryDTO req) {
         // 创建一个 TrainStationExample 对象
         TrainStationExample trainStationExample = new TrainStationExample();
-        // 实现 id 降序
-        trainStationExample.setOrderByClause("id desc");
-
+        // 实现 车次编号、站序 升序查询
+        trainStationExample.setOrderByClause("train_code asc, `index` asc");
         // 创建一个 TrainStationExample.Criteria 对象
         TrainStationExample.Criteria criteria = trainStationExample.createCriteria();
+        if (ObjectUtil.isNotEmpty(req.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
 
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());

@@ -3,15 +3,14 @@ package com.chenmeng.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
-import com.chenmeng.train.common.context.LoginMemberContext;
-import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.business.mapper.TrainSeatMapper;
 import com.chenmeng.train.business.model.dto.TrainSeatQueryDTO;
 import com.chenmeng.train.business.model.dto.TrainSeatSaveDTO;
 import com.chenmeng.train.business.model.entity.TrainSeat;
 import com.chenmeng.train.business.model.entity.TrainSeatExample;
 import com.chenmeng.train.business.model.vo.TrainSeatQueryVO;
+import com.chenmeng.train.common.resp.PageResp;
+import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -51,11 +50,13 @@ public class TrainSeatService {
     public PageResp<TrainSeatQueryVO> queryList(TrainSeatQueryDTO req) {
         // 创建一个 TrainSeatExample 对象
         TrainSeatExample trainSeatExample = new TrainSeatExample();
-        // 实现 id 降序
-        trainSeatExample.setOrderByClause("id desc");
-
-        // 创建一个 TrainSeatExample.Criteria 对象
+        // 实现 车次编号、厢序、同车厢座序 升序查询
+        trainSeatExample.setOrderByClause("train_code asc, carriage_index asc, carriage_seat_index asc");
+        // 创建一个 TrainStationExample.Criteria 对象
         TrainSeatExample.Criteria criteria = trainSeatExample.createCriteria();
+        if (ObjectUtil.isNotEmpty(req.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
 
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());
