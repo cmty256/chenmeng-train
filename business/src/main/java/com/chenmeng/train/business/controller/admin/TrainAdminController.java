@@ -3,6 +3,7 @@ package com.chenmeng.train.business.controller.admin;
 import com.chenmeng.train.business.model.dto.TrainQueryDTO;
 import com.chenmeng.train.business.model.dto.TrainSaveDTO;
 import com.chenmeng.train.business.model.vo.TrainQueryVO;
+import com.chenmeng.train.business.service.TrainSeatService;
 import com.chenmeng.train.business.service.TrainService;
 import com.chenmeng.train.common.resp.CommonResp;
 import com.chenmeng.train.common.resp.PageResp;
@@ -23,6 +24,9 @@ public class TrainAdminController {
 
     @Resource
     private TrainService trainService;
+
+    @Resource
+    private TrainSeatService trainSeatService;
 
     /**
      * 新增保存 或 编辑保存 接口
@@ -67,5 +71,16 @@ public class TrainAdminController {
     public CommonResp<List<TrainQueryVO>> queryList() {
         List<TrainQueryVO> list = trainService.queryAll();
         return new CommonResp<>(list);
+    }
+
+    /**
+     * 根据车次生成（车次）座位信息
+     *
+     * @return
+     */
+    @GetMapping("/gen-seat/{trainCode}")
+    public CommonResp<Object> genSeat(@PathVariable String trainCode) {
+        trainSeatService.genTrainSeat(trainCode);
+        return new CommonResp<>();
     }
 }
