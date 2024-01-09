@@ -41,7 +41,8 @@
            ok-text="确认" cancel-text="取消">
     <a-form :model="train" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
       <a-form-item label="车次编号">
-        <a-input v-model:value="train.code" />
+        <!--!!train.id判断有值，更加严谨规范（有值的时候该表单属性为只读）-->
+        <a-input v-model:value="train.code" :disabled="!!train.id"/>
       </a-form-item>
       <a-form-item label="车次类型">
         <a-select v-model:value="train.type">
