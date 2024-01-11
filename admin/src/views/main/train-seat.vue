@@ -14,7 +14,8 @@
       <!--注意上下文 v-if 和 v-else-if 的使用-->
       <template v-if="column.dataIndex === 'col'">
         <span v-for="item in SEAT_COL_ARRAY" :key="item.code">
-          <span v-if="item.code === record.col">
+          <!--加多个座位类型的判断条件-->
+          <span v-if="item.code === record.col && item.type === record.seatType">
             {{item.desc}}
           </span>
         </span>
