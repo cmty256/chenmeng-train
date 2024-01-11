@@ -3,6 +3,7 @@ package com.chenmeng.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import com.chenmeng.train.business.enums.SeatColEnum;
 import com.chenmeng.train.business.mapper.TrainCarriageMapper;
 import com.chenmeng.train.business.model.dto.TrainCarriageQueryDTO;
 import com.chenmeng.train.business.model.dto.TrainCarriageSaveDTO;
@@ -35,6 +36,12 @@ public class TrainCarriageService {
 
     public void save(TrainCarriageSaveDTO req) {
         DateTime now = DateTime.now();
+
+        // 自动计算出列数和总座位数
+        List<SeatColEnum> seatColEnums = SeatColEnum.getColsByType(req.getSeatType());
+        req.setColCount(seatColEnums.size());
+        req.setSeatCount(req.getColCount() * req.getRowCount());
+
         TrainCarriage trainCarriage = BeanUtil.copyProperties(req, TrainCarriage.class);
         if (ObjectUtil.isNull(trainCarriage.getId())) {
             trainCarriage.setId(SnowUtil.getSnowflakeNextId());
