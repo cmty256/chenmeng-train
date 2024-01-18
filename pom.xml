@@ -20,6 +20,7 @@
         <module>gateway</module>
         <module>generator</module>
         <module>business</module>
+        <module>batch</module>
     </modules>
 
     <packaging>pom</packaging>

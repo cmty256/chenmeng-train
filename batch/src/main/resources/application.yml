@@ -1,0 +1,30 @@
+server:
+  port: 8003
+  servlet:
+    context-path: /batch
+spring:
+  application:
+    name: batch
+  # 开启热部署（更改文件后，自动重启）
+  devtools:
+    restart:
+      enabled: true
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/chenmeng_train_batch?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: train
+    password: train
+# mybatis xml路径
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# 日志级别
+logging:
+  level:
+    com:
+      chenmeng:
+        train:
+          member:
+            mapper: trace
