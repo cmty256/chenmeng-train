@@ -18,6 +18,11 @@
     </properties>
 
     <dependencies>
+        <!-- quartz 定时任务调度框架 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.chenmeng</groupId>
             <artifactId>common</artifactId>
