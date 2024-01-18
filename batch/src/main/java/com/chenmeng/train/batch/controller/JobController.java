@@ -33,6 +33,13 @@ public class JobController {
 
     private final SchedulerFactoryBean schedulerFactoryBean;
 
+    /**
+     * 手动执行任务
+     *
+     * @param cronJobDTO
+     * @return
+     * @throws SchedulerException
+     */
     @RequestMapping(value = "/run")
     public CommonResp<Object> run(@RequestBody CronJobDTO cronJobDTO) throws SchedulerException {
         String jobClassName = cronJobDTO.getName();
@@ -82,6 +89,12 @@ public class JobController {
         return commonResp;
     }
 
+    /**
+     * 暂停定时任务
+     *
+     * @param cronJobDTO
+     * @return
+     */
     @RequestMapping(value = "/pause")
     public CommonResp<Object> pause(@RequestBody CronJobDTO cronJobDTO) {
         String jobClassName = cronJobDTO.getName();
@@ -118,6 +131,12 @@ public class JobController {
         return commonResp;
     }
 
+    /**
+     * 修改定时任务 或 重启
+     *
+     * @param cronJobDTO
+     * @return
+     */
     @RequestMapping(value = "/reschedule")
     public CommonResp<Object> reschedule(@RequestBody CronJobDTO cronJobDTO) {
         String jobClassName = cronJobDTO.getName();
@@ -170,6 +189,11 @@ public class JobController {
         return commonResp;
     }
 
+    /**
+     * 查看所有定时任务列表
+     *
+     * @return
+     */
     @RequestMapping(value="/query")
     public CommonResp<Object> query() {
         LOG.info("查看所有定时任务开始");
