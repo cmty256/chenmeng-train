@@ -3,15 +3,14 @@ package com.chenmeng.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
-import com.chenmeng.train.common.context.LoginMemberContext;
-import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.business.mapper.DailyTrainSeatMapper;
 import com.chenmeng.train.business.model.dto.DailyTrainSeatQueryDTO;
 import com.chenmeng.train.business.model.dto.DailyTrainSeatSaveDTO;
 import com.chenmeng.train.business.model.entity.DailyTrainSeat;
 import com.chenmeng.train.business.model.entity.DailyTrainSeatExample;
 import com.chenmeng.train.business.model.vo.DailyTrainSeatQueryVO;
+import com.chenmeng.train.common.resp.PageResp;
+import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -51,11 +50,11 @@ public class DailyTrainSeatService {
     public PageResp<DailyTrainSeatQueryVO> queryList(DailyTrainSeatQueryDTO req) {
         // 创建一个 DailyTrainSeatExample 对象
         DailyTrainSeatExample dailyTrainSeatExample = new DailyTrainSeatExample();
-        // 实现 id 降序
-        dailyTrainSeatExample.setOrderByClause("id desc");
-
-        // 创建一个 DailyTrainSeatExample.Criteria 对象（类似 MP 的条件构造器）
+        dailyTrainSeatExample.setOrderByClause("date desc, train_code asc, carriage_index asc, carriage_seat_index asc");
         DailyTrainSeatExample.Criteria criteria = dailyTrainSeatExample.createCriteria();
+        if (ObjectUtil.isNotEmpty(req.getTrainCode())) {
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
 
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());
