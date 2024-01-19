@@ -103,7 +103,7 @@ public class TrainSeatService {
         criteria.andTrainCodeEqualTo(trainCode);
         trainSeatMapper.deleteByExample(trainSeatExample);
 
-        // 2、查找当前车次下的所有的车厢
+        // 2、查询当前车次下的所有的车厢
         List<TrainCarriage> carriageList = trainCarriageService.selectByTrainCode(trainCode);
         LOG.info("当前车次下的车厢数：{}", carriageList.size());
 

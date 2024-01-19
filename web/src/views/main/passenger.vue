@@ -1,7 +1,7 @@
 <template>
   <p>
     <a-space>
-      <a-button type="primary" @click="handleQuery()">刷新</a-button>
+      <a-button type="primary" @click="handleQuery()">查询</a-button>
       <a-button type="primary" @click="onAdd">新增</a-button>
     </a-space>
   </p>

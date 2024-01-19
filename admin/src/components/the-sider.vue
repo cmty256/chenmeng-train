@@ -59,22 +59,22 @@
         </a-menu-item>
         <a-menu-item key="/base/train">
           <router-link to="/base/train">
-            <MenuUnfoldOutlined/> &nbsp; 火车管理
+            <MenuUnfoldOutlined/> &nbsp; 列车管理
           </router-link>
         </a-menu-item>
         <a-menu-item key="/base/train-station">
           <router-link to="/base/train-station">
-            <MenuUnfoldOutlined/> &nbsp; 火车车站
+            <MenuUnfoldOutlined/> &nbsp; 列车车站
           </router-link>
         </a-menu-item>
         <a-menu-item key="/base/train-carriage">
           <router-link to="/base/train-carriage">
-            <MenuUnfoldOutlined/> &nbsp; 火车车厢
+            <MenuUnfoldOutlined/> &nbsp; 列车车厢
           </router-link>
         </a-menu-item>
         <a-menu-item key="/base/train-seat">
           <router-link to="/base/train-seat">
-            <MenuUnfoldOutlined/> &nbsp; 火车座位
+            <MenuUnfoldOutlined/> &nbsp; 列车座位
           </router-link>
         </a-menu-item>
       </a-sub-menu>
