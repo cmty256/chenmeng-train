@@ -60,8 +60,8 @@ public class TrainService {
     public PageResp<TrainQueryVO> queryList(TrainQueryDTO req) {
         // 创建一个 TrainExample 对象
         TrainExample trainExample = new TrainExample();
-        // 实现 id 降序
-        trainExample.setOrderByClause("id desc");
+        // 按 车次编号 升序
+        trainExample.setOrderByClause("code asc");
 
         // 创建一个 TrainExample.Criteria 对象
         TrainExample.Criteria criteria = trainExample.createCriteria();

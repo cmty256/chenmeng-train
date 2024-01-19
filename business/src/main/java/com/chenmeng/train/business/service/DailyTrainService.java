@@ -3,15 +3,14 @@ package com.chenmeng.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
-import com.chenmeng.train.common.context.LoginMemberContext;
-import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.business.mapper.DailyTrainMapper;
 import com.chenmeng.train.business.model.dto.DailyTrainQueryDTO;
 import com.chenmeng.train.business.model.dto.DailyTrainSaveDTO;
 import com.chenmeng.train.business.model.entity.DailyTrain;
 import com.chenmeng.train.business.model.entity.DailyTrainExample;
 import com.chenmeng.train.business.model.vo.DailyTrainQueryVO;
+import com.chenmeng.train.common.resp.PageResp;
+import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -51,11 +50,16 @@ public class DailyTrainService {
     public PageResp<DailyTrainQueryVO> queryList(DailyTrainQueryDTO req) {
         // 创建一个 DailyTrainExample 对象
         DailyTrainExample dailyTrainExample = new DailyTrainExample();
-        // 实现 id 降序
-        dailyTrainExample.setOrderByClause("id desc");
-
+        // 先按 日期 降序，再按 车次编号 升序
+        dailyTrainExample.setOrderByClause("date desc, code asc");
         // 创建一个 DailyTrainExample.Criteria 对象（类似 MP 的条件构造器）
         DailyTrainExample.Criteria criteria = dailyTrainExample.createCriteria();
+        if (ObjectUtil.isNotNull(req.getDate())) {
+            criteria.andDateEqualTo(req.getDate());
+        }
+        if (ObjectUtil.isNotEmpty(req.getCode())) {
+            criteria.andCodeEqualTo(req.getCode());
+        }
 
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());
