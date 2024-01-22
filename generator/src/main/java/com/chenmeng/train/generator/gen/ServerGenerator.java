@@ -23,7 +23,7 @@ public class ServerGenerator {
     /**
      * 只读选项，相当于设置访问权限
      */
-    static boolean readOnly = false;
+    static boolean readOnly = true;
 
     /**
      * vue文件路径（web会员模块）
