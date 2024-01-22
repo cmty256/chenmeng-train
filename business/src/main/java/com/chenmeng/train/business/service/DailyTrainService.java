@@ -16,9 +16,10 @@ import com.chenmeng.train.common.resp.PageResp;
 import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,16 +32,13 @@ import java.util.List;
  * @author 沉梦听雨
  **/
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class DailyTrainService {
 
-    @Resource
-    private DailyTrainMapper dailyTrainMapper;
-
-    @Resource
-    private TrainService trainService;
-
-    @Resource
-    private DailyTrainStationService dailyTrainStationService;
+    private final DailyTrainMapper dailyTrainMapper;
+    private final TrainService trainService;
+    private final DailyTrainStationService dailyTrainStationService;
+    private final DailyTrainCarriageService dailyTrainCarriageService;
 
     private static final Logger LOG = LoggerFactory.getLogger(DailyTrainService.class);
 
@@ -146,6 +144,9 @@ public class DailyTrainService {
 
         // 2.2、生成该车次的车站数据
         dailyTrainStationService.genDaily(date, train.getCode());
+
+        // 2.3、生成该车次的车厢数据
+        dailyTrainCarriageService.genDaily(date, train.getCode());
 
         LOG.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }
