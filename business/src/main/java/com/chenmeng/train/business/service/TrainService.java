@@ -96,11 +96,15 @@ public class TrainService {
     }
 
     public List<TrainQueryVO> queryAll() {
+        List<Train> trainList = this.selectAll();
+        return BeanUtil.copyToList(trainList, TrainQueryVO.class);
+    }
+
+    public List<Train> selectAll() {
         TrainExample trainExample = new TrainExample();
         // 根据车次编号升序
         trainExample.setOrderByClause("code asc");
-        List<Train> trainList = trainMapper.selectByExample(trainExample);
-        return BeanUtil.copyToList(trainList, TrainQueryVO.class);
+        return trainMapper.selectByExample(trainExample);
     }
 
     private Train selectByUnique(String code) {
