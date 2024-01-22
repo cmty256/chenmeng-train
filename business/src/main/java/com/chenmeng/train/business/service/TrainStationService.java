@@ -42,13 +42,13 @@ public class TrainStationService {
         if (ObjectUtil.isNull(trainStation.getId())) {
 
             // 保存之前，先校验唯一键是否存在
-            TrainStation trainStationDB = selectByUnique(req.getTrainCode(), req.getIndex());
-            if (ObjectUtil.isNotEmpty(trainStationDB)) {
+            TrainStation trainStationInDb = selectByUnique(req.getTrainCode(), req.getIndex());
+            if (ObjectUtil.isNotEmpty(trainStationInDb)) {
                 throw new BusinessException(BusinessExceptionEnum.BUSINESS_TRAIN_STATION_INDEX_UNIQUE_ERROR);
             }
             // 保存之前，先校验唯一键是否存在
-            trainStationDB = selectByUnique(req.getTrainCode(), req.getName());
-            if (ObjectUtil.isNotEmpty(trainStationDB)) {
+            trainStationInDb = selectByUnique(req.getTrainCode(), req.getName());
+            if (ObjectUtil.isNotEmpty(trainStationInDb)) {
                 throw new BusinessException(BusinessExceptionEnum.BUSINESS_TRAIN_STATION_NAME_UNIQUE_ERROR);
             }
 
@@ -126,5 +126,13 @@ public class TrainStationService {
         } else {
             return null;
         }
+    }
+
+    public List<TrainStation> selectByTrainCode(String trainCode) {
+        TrainStationExample trainStationExample = new TrainStationExample();
+        trainStationExample.setOrderByClause("`index` asc");
+        trainStationExample.createCriteria().andTrainCodeEqualTo(trainCode);
+        // mybatis查询列表，如果没数据，返回的是空列表，不是null，这样可以避免空指针异常
+        return trainStationMapper.selectByExample(trainStationExample);
     }
 }

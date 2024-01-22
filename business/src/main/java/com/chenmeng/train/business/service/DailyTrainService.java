@@ -39,6 +39,9 @@ public class DailyTrainService {
     @Resource
     private TrainService trainService;
 
+    @Resource
+    private DailyTrainStationService dailyTrainStationService;
+
     private static final Logger LOG = LoggerFactory.getLogger(DailyTrainService.class);
 
     public void save(DailyTrainSaveDTO req) {
@@ -110,23 +113,29 @@ public class DailyTrainService {
             return;
         }
 
+        // 写法注意：车次之间低耦合，车次内部高内聚
         for (Train train : trainList) {
-            // 写法注意：车次之间低耦合车次内部高内聚
             genDailyTrain(date, train);
         }
     }
 
+    /**
+     * 生成某日列车信息（车次之间低耦合，车次内部高内聚）
+     *
+     * @param date
+     * @param train
+     */
     public void genDailyTrain(Date date, Train train) {
         LOG.info("生成日期【{}】车次【{}】的信息开始", DateUtil.formatDate(date), train.getCode());
 
-        // 删除该车次已有的数据
+        // 1、删除该车次已有的数据
         DailyTrainExample dailyTrainExample = new DailyTrainExample();
         dailyTrainExample.createCriteria()
                 .andDateEqualTo(date)
                 .andCodeEqualTo(train.getCode());
         dailyTrainMapper.deleteByExample(dailyTrainExample);
 
-        // 生成该车次的数据
+        // 2.1、生成该车次的数据
         DateTime now = DateTime.now();
         DailyTrain dailyTrain = BeanUtil.copyProperties(train, DailyTrain.class);
         dailyTrain.setId(SnowUtil.getSnowflakeNextId());
@@ -134,6 +143,9 @@ public class DailyTrainService {
         dailyTrain.setUpdateTime(now);
         dailyTrain.setDate(date);
         dailyTrainMapper.insert(dailyTrain);
+
+        // 2.2、生成该车次的车站数据
+        dailyTrainStationService.genDaily(date, train.getCode());
 
         LOG.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }
