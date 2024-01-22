@@ -39,6 +39,7 @@ public class DailyTrainService {
     private final TrainService trainService;
     private final DailyTrainStationService dailyTrainStationService;
     private final DailyTrainCarriageService dailyTrainCarriageService;
+    private final DailyTrainSeatService dailyTrainSeatService;
 
     private static final Logger LOG = LoggerFactory.getLogger(DailyTrainService.class);
 
@@ -147,6 +148,9 @@ public class DailyTrainService {
 
         // 2.3、生成该车次的车厢数据
         dailyTrainCarriageService.genDaily(date, train.getCode());
+
+        // 2.4、生成该车次的座位数据
+        dailyTrainSeatService.genDaily(date, train.getCode());
 
         LOG.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }
