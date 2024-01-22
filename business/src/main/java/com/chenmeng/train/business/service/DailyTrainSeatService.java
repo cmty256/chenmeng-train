@@ -130,4 +130,22 @@ public class DailyTrainSeatService {
 
         LOG.info("生成日期【{}】车次【{}】的座位信息结束", DateUtil.formatDate(date), trainCode);
     }
+
+    public int countSeat(Date date, String trainCode, String seatType) {
+        DailyTrainSeatExample example = new DailyTrainSeatExample();
+        DailyTrainSeatExample.Criteria criteria = example.createCriteria();
+        criteria.andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode);
+        if (StrUtil.isNotBlank(seatType)) {
+            criteria.andSeatTypeEqualTo(seatType);
+        }
+
+        long num = dailyTrainSeatMapper.countByExample(example);
+
+        if (num == 0L) {
+            // -1 表示没有这种座位
+            return -1;
+        }
+        return (int) num;
+    }
 }

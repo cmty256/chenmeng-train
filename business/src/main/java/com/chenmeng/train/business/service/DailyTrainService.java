@@ -40,6 +40,7 @@ public class DailyTrainService {
     private final DailyTrainStationService dailyTrainStationService;
     private final DailyTrainCarriageService dailyTrainCarriageService;
     private final DailyTrainSeatService dailyTrainSeatService;
+    private final DailyTrainTicketService dailyTrainTicketService;
 
     private static final Logger LOG = LoggerFactory.getLogger(DailyTrainService.class);
 
@@ -124,6 +125,7 @@ public class DailyTrainService {
      * @param date
      * @param train
      */
+    @Transactional(rollbackFor = Exception.class)
     public void genDailyTrain(Date date, Train train) {
         LOG.info("生成日期【{}】车次【{}】的信息开始", DateUtil.formatDate(date), train.getCode());
 
@@ -151,6 +153,9 @@ public class DailyTrainService {
 
         // 2.4、生成该车次的座位数据
         dailyTrainSeatService.genDaily(date, train.getCode());
+
+        // 2.5、生成该车次的余票数据
+        dailyTrainTicketService.genDaily(dailyTrain, date, train.getCode());
 
         LOG.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }
