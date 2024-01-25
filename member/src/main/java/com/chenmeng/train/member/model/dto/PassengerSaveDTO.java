@@ -39,14 +39,14 @@ public class PassengerSaveDTO {
     private String type;
 
     /**
-     * 创建时间 -- 时区必须设置
+     * 创建时间
      * 注解格式化前端传过来的数据
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
-     * 修改时间 -- 时区必须设置
+     * 修改时间
      * 注解格式化前端传过来的数据
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
