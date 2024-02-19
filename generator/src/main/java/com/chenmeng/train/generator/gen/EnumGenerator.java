@@ -26,12 +26,12 @@ public class EnumGenerator {
     /**
      * web会员模块路径
      */
-    // static String path = "web/src/assets/js/enums.js";
+    static String path = "web/src/assets/js/enums.js";
 
     /**
      * admin管理控台模块路径
      */
-    static String path = "admin/src/assets/js/enums.js";
+    // static String path = "admin/src/assets/js/enums.js";
 
     public static void main(String[] args) {
         // 生成数据 1：对象

@@ -11,6 +11,8 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 乘车人前端控制器
  *
@@ -25,6 +27,7 @@ public class PassengerController {
 
     /**
      * 新增保存 或 编辑保存 接口
+     *
      * @param saveReq
      * @return
      */
@@ -49,6 +52,7 @@ public class PassengerController {
 
     /**
      * 根据 id 删除乘车人接口
+     *
      * @param id
      * @return
      */
@@ -56,5 +60,14 @@ public class PassengerController {
     public CommonResp<Object> delete(@PathVariable Long id) {
         passengerService.delete(id);
         return new CommonResp<>();
+    }
+
+    /**
+     * 查询我的所有乘客
+     */
+    @GetMapping("/query-mine")
+    public CommonResp<List<PassengerQueryVO>> queryMine() {
+        List<PassengerQueryVO> list = passengerService.queryMine();
+        return new CommonResp<>(list);
     }
 }
