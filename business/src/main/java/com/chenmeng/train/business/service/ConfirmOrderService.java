@@ -3,15 +3,15 @@ package com.chenmeng.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
-import com.chenmeng.train.common.context.LoginMemberContext;
-import com.chenmeng.train.common.resp.PageResp;
-import com.chenmeng.train.common.util.SnowUtil;
 import com.chenmeng.train.business.mapper.ConfirmOrderMapper;
+import com.chenmeng.train.business.model.dto.ConfirmOrderDoDTO;
 import com.chenmeng.train.business.model.dto.ConfirmOrderQueryDTO;
 import com.chenmeng.train.business.model.dto.ConfirmOrderSaveDTO;
 import com.chenmeng.train.business.model.entity.ConfirmOrder;
 import com.chenmeng.train.business.model.entity.ConfirmOrderExample;
 import com.chenmeng.train.business.model.vo.ConfirmOrderQueryVO;
+import com.chenmeng.train.common.resp.PageResp;
+import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -84,5 +84,23 @@ public class ConfirmOrderService {
 
     public void delete(Long id) {
         confirmOrderMapper.deleteByPrimaryKey(id);
+    }
+
+    public void doConfirm(ConfirmOrderDoDTO dto) {
+        // 省略业务数据校验，如：车次是否存在，余票是否存在，车次是否在有效期内，tickets条数>0，同乘客同车次是否已买过
+
+        // 保存确认订单表，状态初始
+        // 查出余票记录，需要得到真实的库存
+        // 预扣减余票数量，并判断余票是否足够
+
+        // 选座
+            // 一个车箱一个车箱的获取座位数据
+            // 挑选符合条件的座位，如果这个车箱不满足，则进入下个车箱(多个选座应该在同一个车厢)
+
+        // 选中座位后的事务处理
+            // 座位表修改售卖情况sell
+            // 余票详情表修改余票
+            // 为会员增加购票记录
+            // 更新确认订单为成功
     }
 }
