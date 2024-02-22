@@ -24,9 +24,10 @@ import com.chenmeng.train.common.resp.PageResp;
 import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,19 +42,14 @@ import static com.chenmeng.train.business.constant.NumberConstant.TWO;
  * @author 沉梦听雨
  **/
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ConfirmOrderService {
 
-    @Resource
-    private ConfirmOrderMapper confirmOrderMapper;
-
-    @Resource
-    private DailyTrainTicketService dailyTrainTicketService;
-
-    @Resource
-    private DailyTrainCarriageService dailyTrainCarriageService;
-
-    @Resource
-    private DailyTrainSeatService dailyTrainSeatService;
+    private final ConfirmOrderMapper confirmOrderMapper;
+    private final DailyTrainTicketService dailyTrainTicketService;
+    private final DailyTrainCarriageService dailyTrainCarriageService;
+    private final DailyTrainSeatService dailyTrainSeatService;
+    private final AfterConfirmOrderService afterConfirmOrderService;
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfirmOrderService.class);
 
@@ -138,6 +134,8 @@ public class ConfirmOrderService {
         // 4、预扣减余票数量，并判断余票是否足够
         reduceTickets(dto, dailyTrainTicket);
 
+        // 创建最终地选座结果列表
+        List<DailyTrainSeat> finalSeatList = new ArrayList<>();
         // 5、计算相对第一个座位的偏移值，比如选择的是C1,D2，则偏移值是：[0,5]，比如选择的是A1,B1,C1，则偏移值是：[0,1,2]
         // 获取用户选的座位
         ConfirmOrderTicketDTO ticketReq0 = tickets.get(0);
@@ -173,8 +171,6 @@ public class ConfirmOrderService {
             LOG.info("计算得到所有座位的相对第一个座位的偏移值：{}", offsetList);
 
             // 5.5、选座：一个车厢一个车厢的获取座位数据
-            // 创建最终地选座结果列表
-            List<DailyTrainSeat> finalSeatList = new ArrayList<>();
             getSeat(finalSeatList,
                     date,
                     trainCode,
@@ -186,13 +182,31 @@ public class ConfirmOrderService {
             );
         } else {
             LOG.info("本次购票没有选座");
+            for (ConfirmOrderTicketDTO ticketReq : tickets) {
+                getSeat(finalSeatList,
+                        date,
+                        trainCode,
+                        ticketReq.getSeatTypeCode(),
+                        null,
+                        null,
+                        dailyTrainTicket.getStartIndex(),
+                        dailyTrainTicket.getEndIndex()
+                );
+            }
         }
 
+        LOG.info("最终选座：{}", finalSeatList);
         // 选中座位后的事务处理 -- 尽量做短事务，不要做常事务，否则会大量占用数据库资源
             // 座位表修改售卖情况sell
             // 余票详情表修改余票
             // 为会员增加购票记录
-            // 更新确认订单为成功
+            // 更新确认订单表状态为成功
+        try {
+            afterConfirmOrderService.afterDoConfirm(dailyTrainTicket, finalSeatList, tickets, confirmOrder);
+        } catch (Exception e) {
+            LOG.error("保存购票信息失败", e);
+            throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_EXCEPTION);
+        }
     }
 
     /**
@@ -309,7 +323,7 @@ public class ConfirmOrderService {
      * 全部是0，表示这个区间可买；只要有1，就表示区间内已售过票
      * <p>
      * 选中后，要计算购票后的sell，比如原来是10001，本次购买区间站1~4
-     * 方案：构造本次购票造成的售卖信息01110，和原sell 10001按位与，最终得到11111
+     * 方案：构造本次购票造成的售卖信息01110，和原sell 10001按位或运算，最终得到11111
      */
     private boolean calSell(DailyTrainSeat dailyTrainSeat, Integer startIndex, Integer endIndex) {
         // 00001, 00000

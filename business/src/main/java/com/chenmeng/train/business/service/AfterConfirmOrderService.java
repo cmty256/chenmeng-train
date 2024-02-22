@@ -1,6 +1,8 @@
 package com.chenmeng.train.business.service;
 
+import com.chenmeng.train.business.enums.ConfirmOrderStatusEnum;
 import com.chenmeng.train.business.fegin.MemberFeign;
+import com.chenmeng.train.business.mapper.ConfirmOrderMapper;
 import com.chenmeng.train.business.mapper.DailyTrainSeatMapper;
 import com.chenmeng.train.business.mapper.custom.DailyTrainTicketMapperCust;
 import com.chenmeng.train.business.model.dto.ConfirmOrderTicketDTO;
@@ -9,9 +11,10 @@ import com.chenmeng.train.business.model.entity.DailyTrainSeat;
 import com.chenmeng.train.business.model.entity.DailyTrainTicket;
 import com.chenmeng.train.common.req.MemberTicketReq;
 import com.chenmeng.train.common.resp.CommonResp;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,25 +27,22 @@ import java.util.List;
  * @author 沉梦听雨
  */
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class AfterConfirmOrderService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AfterConfirmOrderService.class);
 
-    @Resource
-    private DailyTrainSeatMapper dailyTrainSeatMapper;
-
-    @Resource
-    private DailyTrainTicketMapperCust dailyTrainTicketMapperCust;
-
-    @Resource
-    private MemberFeign memberFeign;
+    private final DailyTrainSeatMapper dailyTrainSeatMapper;
+    private final DailyTrainTicketMapperCust dailyTrainTicketMapperCust;
+    private final MemberFeign memberFeign;
+    private final ConfirmOrderMapper confirmOrderMapper;
 
     /**
      * 选中座位后事务处理：
      *  根据最终选中座位列表，修改座位表售卖情况sell
      *  余票详情表修改余票
      *  为会员增加购票记录
-     *  更新确认订单为成功
+     *  更新确认订单表状态为成功
      */
     @Transactional(rollbackFor = Exception.class)
     public void afterDoConfirm(DailyTrainTicket dailyTrainTicket, List<DailyTrainSeat> finalSeatList,
@@ -122,7 +122,13 @@ public class AfterConfirmOrderService {
             memberTicketReq.setSeatType(dailyTrainSeat.getSeatType());
             CommonResp<Object> commonResp = memberFeign.save(memberTicketReq);
             LOG.info("调用member接口，返回：{}", commonResp);
-        }
 
+            // 4、更新确认订单表状态为成功
+            ConfirmOrder confirmOrderForUpdate = new ConfirmOrder();
+            confirmOrderForUpdate.setId(confirmOrder.getId());
+            confirmOrderForUpdate.setUpdateTime(new Date());
+            confirmOrderForUpdate.setStatus(ConfirmOrderStatusEnum.SUCCESS.getCode());
+            confirmOrderMapper.updateByPrimaryKeySelective(confirmOrderForUpdate);
+        }
     }
 }
