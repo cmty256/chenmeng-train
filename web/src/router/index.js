@@ -26,6 +26,9 @@ const routes = [{
     }, {
         path: 'order',
         component: () => import('../views/main/order.vue'),
+    }, {
+        path: 'my-ticket',
+        component: () => import('../views/main/my-ticket.vue')
     }]
 }, {
     // 根路由, 访问根域名的时候会重定向到欢迎页
