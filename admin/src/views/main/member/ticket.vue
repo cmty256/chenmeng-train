@@ -2,7 +2,6 @@
   <p>
     <a-space>
       <a-button type="primary" @click="handleQuery()">刷新</a-button>
-      
     </a-space>
   </p>
   <a-table :dataSource="tickets"
@@ -15,7 +14,7 @@
       </template>
       <template v-else-if="column.dataIndex === 'seatCol'">
         <span v-for="item in SEAT_COL_ARRAY" :key="item.code">
-          <span v-if="item.code === record.seatCol">
+          <span v-if="item.code === record.seatCol && item.type === record.seatType">
             {{item.desc}}
           </span>
         </span>
@@ -38,7 +37,6 @@ import axios from "axios";
 
 export default defineComponent({
   name: "ticket-view",
-
   setup() {
     const SEAT_COL_ARRAY = window.SEAT_COL_ARRAY;
     const SEAT_TYPE_ARRAY = window.SEAT_TYPE_ARRAY;
@@ -70,16 +68,6 @@ export default defineComponent({
     });
     let loading = ref(false);
     const columns = [
-    {
-      title: '会员id',
-      dataIndex: 'memberId',
-      key: 'memberId',
-    },
-    {
-      title: '乘客id',
-      dataIndex: 'passengerId',
-      key: 'passengerId',
-    },
     {
       title: '乘客姓名',
       dataIndex: 'passengerName',
