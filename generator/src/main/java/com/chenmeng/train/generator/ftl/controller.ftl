@@ -29,7 +29,7 @@ public class ${Domain}Controller {
      * @return
      */
     @PostMapping("/save")
-    public CommonResp<Integer> count(@Valid @RequestBody ${Domain}SaveDTO saveReq) {
+    public CommonResp<Integer> save(@Valid @RequestBody ${Domain}SaveDTO saveReq) {
         ${domain}Service.save(saveReq);
         return new CommonResp<>();
     }

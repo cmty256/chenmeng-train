@@ -32,7 +32,7 @@ public class PassengerController {
      * @return
      */
     @PostMapping("/save")
-    public CommonResp<Integer> count(@Valid @RequestBody PassengerSaveDTO saveReq) {
+    public CommonResp<Integer> save(@Valid @RequestBody PassengerSaveDTO saveReq) {
         passengerService.save(saveReq);
         return new CommonResp<>();
     }
