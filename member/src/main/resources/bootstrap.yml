@@ -1,0 +1,17 @@
+# 一般 application.yml 用来放 SpringBoot 的配置；
+# bootstrap.yml 用来放 SpringCloud 的配置。
+
+spring:
+  # 注册中心的名字
+  application:
+    name: member
+  # 启动环境，nacos会根据环境读不同的配置dataId：member-dev.yaml
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        # nacos server地址
+        server-addr: 127.0.0.1:8848
+        # 配置中心文件后缀，默认properties
+        file-extension: yaml
