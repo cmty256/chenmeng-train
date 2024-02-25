@@ -1,0 +1,12 @@
+# 一般 application.yml 用来放 SpringBoot 的配置；
+# bootstrap.yml 用来放 SpringCloud 的配置。
+
+spring:
+  # 注册中心的名字
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: chenmeng-train

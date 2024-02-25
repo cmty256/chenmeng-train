@@ -21,15 +21,19 @@ spring:
         - id: member
           predicates:
             - Path=/member/**
-          uri: http://127.0.0.1:8001
+          # uri: http://127.0.0.1:8001 # 根据路由转发
+          # 根据服务名转发 -- lb = load balance 负载均衡, 这里的 member 指的是注册中心的名字
+          uri: lb://member
         # 路由转发，将/business/...的请求转发了business模块
         - id: business
           predicates:
             - Path=/business/**
-          uri: http://127.0.0.1:8002
+          # uri: http://127.0.0.1:8002
+          uri: lb://business
         # 路由转发，将/batch/...的请求转发了batch模块
         - id: batch
           predicates:
             - Path=/batch/**
-          uri: http://127.0.0.1:8003
+          # uri: http://127.0.0.1:8003
+          uri: lb://batch
 
