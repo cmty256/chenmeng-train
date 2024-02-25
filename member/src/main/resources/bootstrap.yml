@@ -15,3 +15,5 @@ spring:
         server-addr: 127.0.0.1:8848
         # 配置中心文件后缀，默认properties
         file-extension: yaml
+        # 命名空间ID
+        namespace: chenmeng-train
