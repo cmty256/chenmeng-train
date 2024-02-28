@@ -13,8 +13,8 @@ import java.util.Date;
  *
  * @author 沉梦听雨
  **/
-// @FeignClient("business")
-@FeignClient(name = "business", url = "http://127.0.0.1:8002/business")
+@FeignClient("business")
+// @FeignClient(name = "business", url = "http://127.0.0.1:8002/business")
 public interface BusinessFeign {
 
     /**
@@ -22,7 +22,7 @@ public interface BusinessFeign {
      *
      * @return
      */
-    @GetMapping("/test/hello")
+    @GetMapping("/business/test/hello")
     String hello();
 
     /**
@@ -31,6 +31,6 @@ public interface BusinessFeign {
      * @param date
      * @return
      */
-    @GetMapping("/admin/daily-train/gen-daily/{date}")
+    @GetMapping("/business/admin/daily-train/gen-daily/{date}")
     CommonResp<Object> genDaily(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date);
 }

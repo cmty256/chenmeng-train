@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
  * @author 沉梦听雨
  */
 @SpringBootApplication
-@EnableFeignClients("com.chenmeng.train.business.feign")
+@EnableFeignClients("com.chenmeng.train.business.fegin")
 @MapperScan("com.chenmeng.train.*.mapper")
 public class BusinessApplication {
 
