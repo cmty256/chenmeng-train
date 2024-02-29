@@ -15,6 +15,13 @@ spring:
     url: jdbc:mysql://localhost:3306/chenmeng_train_business?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: train
     password: train
+  # redis配置
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: 123321
+      database: 1
 # mybatis xml路径
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
