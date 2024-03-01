@@ -22,6 +22,19 @@ spring:
       port: 6379
       password: 123321
       database: 1
+  # 配置缓存相关信息
+  cache:
+    # 指定缓存类型为 Redis
+    type: redis
+    redis:
+      # 启用缓存键前缀
+      use-key-prefix: true
+      # 设置缓存键前缀为 "train_cache_"
+      key-prefix: train_cache_
+      # 允许缓存空值 -- 可避免缓存穿透问题
+      cache-null-values: true
+      # 设置缓存过期时间为 60 秒
+      time-to-live: 60s
 # mybatis xml路径
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
