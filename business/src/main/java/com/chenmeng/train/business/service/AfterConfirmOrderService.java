@@ -11,12 +11,13 @@ import com.chenmeng.train.business.model.entity.DailyTrainSeat;
 import com.chenmeng.train.business.model.entity.DailyTrainTicket;
 import com.chenmeng.train.common.req.MemberTicketReq;
 import com.chenmeng.train.common.resp.CommonResp;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -44,9 +45,11 @@ public class AfterConfirmOrderService {
      *  为会员增加购票记录
      *  更新确认订单表状态为成功
      */
-    @Transactional(rollbackFor = Exception.class)
+    // @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional
     public void afterDoConfirm(DailyTrainTicket dailyTrainTicket, List<DailyTrainSeat> finalSeatList,
                                List<ConfirmOrderTicketDTO> tickets, ConfirmOrder confirmOrder) throws Exception {
+        LOG.info("seata全局事务ID: {}", RootContext.getXID());
         for (int j = 0; j < finalSeatList.size(); j++) {
             // 1、修改座位表售卖情况sell
             DailyTrainSeat dailyTrainSeat = finalSeatList.get(j);

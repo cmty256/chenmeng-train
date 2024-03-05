@@ -20,3 +20,14 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: chenmeng-train
+# 提示: 也可以不做配置，这三个配置项都有默认值，默认客户端的tx-service-group=default_tx_group
+seata:
+  # 事务组名称 -- 一个项目的多个模块配置成同一个事务组
+  tx-service-group: train-group
+  service:
+    # 事务组和seata集群做关联
+    vgroup-mapping:
+      train-group: default
+    # seata集群对应的机器
+    grouplist:
+      default: 127.0.0.1:8091
