@@ -20,14 +20,50 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: chenmeng-train
+
+###################单独配置########################
 # 提示: 也可以不做配置，这三个配置项都有默认值，默认客户端的tx-service-group=default_tx_group
+#seata:
+#  # 事务组名称 -- 一个项目的多个模块配置成同一个事务组
+#  tx-service-group: train-group
+#  service:
+#    # 事务组和seata集群做关联
+#    vgroup-mapping:
+#      train-group: default
+#    # seata集群对应的机器
+#    grouplist:
+#      default: 127.0.0.1:8091
+################################################
+
+# seata + nacos 配置
 seata:
-  # 事务组名称 -- 一个项目的多个模块配置成同一个事务组
-  tx-service-group: train-group
-  service:
-    # 事务组和seata集群做关联
-    vgroup-mapping:
-      train-group: default
-    # seata集群对应的机器
-    grouplist:
-      default: 127.0.0.1:8091
+  config:
+    nacos:
+      dataId: seataServer.yml
+      group: SEATA_GROUP
+      namespace: chenmeng-train
+      password: nacos
+      server-addr: 127.0.0.1:8848
+      username: nacos
+    type: nacos
+  registry:
+    nacos:
+      application: seata-server
+      group: SEATA_GROUP
+      namespace: chenmeng-train
+      password: nacos
+      server-addr: 127.0.0.1:8848
+      username: nacos
+    type: nacos
+
+################################################
+# 以下是nacos中的seataServer.properties的相关配置（在这里应改成 yml 格式）
+################################################
+# # 和微服务模块的seata.tx-service-group保持一致
+# service.vgroupMapping.train-group=default
+# service.default.grouplist=127.0.0.1:8091
+#
+# # 和微服务模块的seata.tx-service-group保持一致
+# service.vgroupMapping.test-group=default1
+# service.default1.grouplist=127.0.0.1:18091
+################################################
