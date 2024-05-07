@@ -22,6 +22,12 @@ public class ConfirmOrderController {
     @Resource
     private ConfirmOrderService confirmOrderService;
 
+    /**
+     * 确认订单（抢票）
+     *
+     * @param dto
+     * @return
+     */
     @PostMapping("/do")
     public CommonResp<Object> doConfirm(@Valid @RequestBody ConfirmOrderDoDTO dto) {
         confirmOrderService.doConfirm(dto);
