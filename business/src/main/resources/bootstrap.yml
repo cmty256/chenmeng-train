@@ -20,6 +20,12 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: chenmeng-train
+    # sentinel控台：https://github.com/alibaba/spring-cloud-alibaba/wiki/Sentinel
+    # 需有流量后才会显示到控制台
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:18080
 
 ###################单独配置########################
 # 提示: 也可以不做配置，这三个配置项都有默认值，默认客户端的tx-service-group=default_tx_group
