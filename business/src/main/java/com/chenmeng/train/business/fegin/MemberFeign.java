@@ -3,7 +3,7 @@ package com.chenmeng.train.business.fegin;
 import com.chenmeng.train.common.req.MemberTicketReq;
 import com.chenmeng.train.common.resp.CommonResp;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient("member")
@@ -16,7 +16,7 @@ public interface MemberFeign {
      * @param req
      * @return
      */
-    @GetMapping("/member/feign/ticket/save")
+    @PostMapping("/member/feign/ticket/save")
     CommonResp<Object> save(@RequestBody MemberTicketReq req);
 
 }
