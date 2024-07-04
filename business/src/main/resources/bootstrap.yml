@@ -9,6 +9,7 @@ spring:
   profiles:
     active: dev
   cloud:
+    # nacos配置
     nacos:
       config:
         # nacos server地址
@@ -20,12 +21,25 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: chenmeng-train
-    # sentinel控台：https://github.com/alibaba/spring-cloud-alibaba/wiki/Sentinel
-    # 需有流量后才会显示到控制台
+    # sentinel配置
     sentinel:
+      # sentinel控台：https://github.com/alibaba/spring-cloud-alibaba/wiki/Sentinel
+      # 需有流量后才会显示到控制台
       transport:
         port: 8719
         dashboard: localhost:18080
+      # 流控模式是链路时，必须关闭这个配置，默认是true，为true时可以在控台-簇点链路界面看到所有请求都在一个链路下面
+      web-context-unify: false
+      # sentinel + nacos 配置，可将限流配置放到nacos中
+      datasource:
+        flow:
+          nacos:
+            dataId: sentinel-business-flow
+            groupId: DEFAULT_GROUP
+            namespace: chenmeng-train
+            # 此处名字自定义，这里表示限流
+            ruleType: flow
+            serverAddr: 127.0.0.1:8848
 
 ###################单独配置########################
 # 提示: 也可以不做配置，这三个配置项都有默认值，默认客户端的tx-service-group=default_tx_group
