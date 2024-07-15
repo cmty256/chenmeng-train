@@ -20,3 +20,26 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: chenmeng-train
+    sentinel:
+      # sentinel + nacos
+      datasource:
+        # 此处名字自定义，这里定义和ruleType一致，表示熔断
+        degrade:
+          nacos:
+            dataId: sentinel-batch-degrade
+            groupId: DEFAULT_GROUP
+            namespace: train
+            # 这里表示熔断
+            ruleType: degrade
+            serverAddr: 127.0.0.1:8848
+      # sentinel控台：https://github.com/alibaba/spring-cloud-alibaba/wiki/Sentinel
+      transport:
+        dashboard: localhost:18080
+        port: 8719
+    openfeign:
+      # 下面改成true后，启动会报注入失败，需改成懒加载
+      lazy-attributes-resolution: true
+feign:
+  sentinel:
+    # sentinel默认不监控feign，需改成true，在簇点链路界面会显示资源：GET:http://business/business/hello
+    enabled: true

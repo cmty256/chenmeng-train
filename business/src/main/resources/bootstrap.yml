@@ -32,12 +32,13 @@ spring:
       web-context-unify: false
       # sentinel + nacos 配置，可将限流配置放到nacos中
       datasource:
+        # 此处名字自定义，这里定义和ruleType一致，表示限流
         flow:
           nacos:
             dataId: sentinel-business-flow
             groupId: DEFAULT_GROUP
             namespace: chenmeng-train
-            # 此处名字自定义，这里表示限流
+            # 这里表示限流
             ruleType: flow
             serverAddr: 127.0.0.1:8848
 
