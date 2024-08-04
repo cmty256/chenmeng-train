@@ -41,6 +41,7 @@ public class DailyTrainService {
     private final DailyTrainCarriageService dailyTrainCarriageService;
     private final DailyTrainSeatService dailyTrainSeatService;
     private final DailyTrainTicketService dailyTrainTicketService;
+    private final SkTokenService skTokenService;
 
     private static final Logger LOG = LoggerFactory.getLogger(DailyTrainService.class);
 
@@ -156,6 +157,9 @@ public class DailyTrainService {
 
         // 2.5、生成该车次的余票数据
         dailyTrainTicketService.genDaily(dailyTrain, date, train.getCode());
+
+        // 2.6、生成令牌余量数据
+        skTokenService.genDaily(date, train.getCode());
 
         LOG.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date), train.getCode());
     }

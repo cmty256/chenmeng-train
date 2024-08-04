@@ -138,4 +138,15 @@ public class DailyTrainStationService {
         List<DailyTrainStation> list = dailyTrainStationMapper.selectByExample(dailyTrainStationExample);
         return BeanUtil.copyToList(list, DailyTrainStationQueryVO.class);
     }
+
+    /**
+     * 按车次查询全部车站
+     */
+    public long countByTrainCode(Date date, String trainCode) {
+        DailyTrainStationExample example = new DailyTrainStationExample();
+        example.createCriteria()
+                .andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode);
+        return dailyTrainStationMapper.countByExample(example);
+    }
 }
