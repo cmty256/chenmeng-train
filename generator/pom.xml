@@ -71,8 +71,8 @@
                 <version>1.4.0</version>
                 <configuration>
                     <!-- TODO 可能需要更改的地方，这里只能指定一个配置文件 -->
-                    <configurationFile>src/main/resources/generator-config-member.xml</configurationFile>
-<!--                    <configurationFile>src/main/resources/generator-config-business.xml</configurationFile>-->
+<!--                    <configurationFile>src/main/resources/generator-config-member.xml</configurationFile>-->
+                    <configurationFile>src/main/resources/generator-config-business.xml</configurationFile>
                     <overwrite>true</overwrite>
                     <verbose>true</verbose>
                 </configuration>
