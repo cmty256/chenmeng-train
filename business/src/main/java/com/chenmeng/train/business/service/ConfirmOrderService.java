@@ -22,6 +22,7 @@ import com.chenmeng.train.business.model.dto.ConfirmOrderSaveDTO;
 import com.chenmeng.train.business.model.dto.ConfirmOrderTicketDTO;
 import com.chenmeng.train.business.model.entity.*;
 import com.chenmeng.train.business.model.vo.ConfirmOrderQueryVO;
+import com.chenmeng.train.common.context.LoginMemberContext;
 import com.chenmeng.train.common.exception.BusinessException;
 import com.chenmeng.train.common.exception.BusinessExceptionEnum;
 import com.chenmeng.train.common.resp.PageResp;
@@ -60,6 +61,7 @@ public class ConfirmOrderService {
     private final AfterConfirmOrderService afterConfirmOrderService;
     private final StringRedisTemplate stringRedisTemplate;
     private final RedissonClient redissonClient;
+    private final SkTokenService skTokenService;
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfirmOrderService.class);
 
@@ -117,6 +119,15 @@ public class ConfirmOrderService {
 
     @SentinelResource(value = "doConfirm", blockHandler = "doConfirmBlock")
     public void doConfirm(ConfirmOrderDoDTO dto) {
+        // 校验令牌余量
+        boolean validSkToken = skTokenService.validSkToken(dto.getDate(), dto.getTrainCode(), LoginMemberContext.getId());
+        if (validSkToken) {
+            LOG.info("令牌校验通过");
+        } else {
+            LOG.info("令牌校验不通过");
+            throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_SK_TOKEN_FAIL);
+        }
+
         // 省略业务数据校验，如：车次是否存在，余票是否存在，车次是否在有效期内，tickets条数>0，同乘客同车次是否已买过
 
         // 获取分布式锁
