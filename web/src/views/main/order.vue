@@ -51,6 +51,7 @@
     <a-button type="primary" size="large" @click="finishCheckPassenger">提交订单</a-button>
   </div>
 
+  <!-- 显示第一层验证码模态框 -->
   <a-modal v-model:visible="visible" title="请核对以下信息"
            style="top: 50px; width: 800px"
            ok-text="确认" cancel-text="取消"
@@ -437,29 +438,19 @@ export default defineComponent({
       }, 500);
     };
 
-    /* ------------------- 第二层验证码 --------------------- */
-    const imageCodeModalVisible = ref();
-    const imageCodeToken = ref();
-    const imageCodeSrc = ref();
-    const imageCode = ref();
-    /**
-     * 加载图形验证码
-     */
-    const loadImageCode = () => {
-      imageCodeToken.value = Tool.uuid(8);
-      imageCodeSrc.value = process.env.VUE_APP_SERVER + '/business/kaptcha/image-code/' + imageCodeToken.value;
-    };
-
-    const showImageCodeModal = () => {
-      loadImageCode();
-      imageCodeModalVisible.value = true;
-    };
-
     /* ------------------- 第一层验证码 --------------------- */
     const firstImageCodeSourceA = ref();
     const firstImageCodeSourceB = ref();
     const firstImageCodeTarget = ref();
     const firstImageCodeModalVisible = ref();
+
+    /**
+     * 显示第一层验证码弹出框
+     */
+    const showFirstImageCodeModal = () => {
+      loadFirstImageCode();
+      firstImageCodeModalVisible.value = true;
+    };
 
     /**
      * 加载第一层验证码
@@ -470,12 +461,23 @@ export default defineComponent({
       firstImageCodeSourceB.value = Math.floor(Math.random()*10 + 1) + 20;
     };
 
+    /* ------------------- 第二层验证码 --------------------- */
+    const imageCodeModalVisible = ref();
+    const imageCodeToken = ref();
+    const imageCodeSrc = ref();
+    const imageCode = ref();
+
+    const showImageCodeModal = () => {
+      loadImageCode();
+      imageCodeModalVisible.value = true;
+    };
+
     /**
-     * 显示第一层验证码弹出框
+     * 加载图形验证码
      */
-    const showFirstImageCodeModal = () => {
-      loadFirstImageCode();
-      firstImageCodeModalVisible.value = true;
+    const loadImageCode = () => {
+      imageCodeToken.value = Tool.uuid(8);
+      imageCodeSrc.value = process.env.VUE_APP_SERVER + '/business/kaptcha/image-code/' + imageCodeToken.value;
     };
 
     /**
