@@ -4,7 +4,6 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.chenmeng.train.business.model.dto.ConfirmOrderDoDTO;
 import com.chenmeng.train.business.service.BeforeConfirmOrderService;
-import com.chenmeng.train.business.service.ConfirmOrderService;
 import com.chenmeng.train.common.exception.BusinessExceptionEnum;
 import com.chenmeng.train.common.resp.CommonResp;
 import jakarta.validation.Valid;
@@ -30,7 +29,6 @@ public class ConfirmOrderController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfirmOrderController.class);
 
-    private final ConfirmOrderService confirmOrderService;
     private final StringRedisTemplate stringRedisTemplate;
     private final BeforeConfirmOrderService beforeConfirmOrderService;
 
