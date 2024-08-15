@@ -48,3 +48,10 @@ logging:
         train:
           business:
             mapper: trace
+
+# rocketmq
+rocketmq:
+  name-server:
+    http://localhost:9876
+  producer:
+    group: default

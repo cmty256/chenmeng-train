@@ -3,6 +3,7 @@ package com.chenmeng.train.business.controller.web;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.chenmeng.train.business.model.dto.ConfirmOrderDoDTO;
+import com.chenmeng.train.business.service.BeforeConfirmOrderService;
 import com.chenmeng.train.business.service.ConfirmOrderService;
 import com.chenmeng.train.common.exception.BusinessExceptionEnum;
 import com.chenmeng.train.common.resp.CommonResp;
@@ -31,6 +32,7 @@ public class ConfirmOrderController {
 
     private final ConfirmOrderService confirmOrderService;
     private final StringRedisTemplate stringRedisTemplate;
+    private final BeforeConfirmOrderService beforeConfirmOrderService;
 
     /**
      * 确认订单（抢票）
@@ -63,8 +65,8 @@ public class ConfirmOrderController {
         }
 
         // 2、下单
-        confirmOrderService.doConfirm(dto);
-        return new CommonResp<>();
+        Long id = beforeConfirmOrderService.beforeDoConfirm(dto);
+        return new CommonResp<>(String.valueOf(id));
     }
 
     /**

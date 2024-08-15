@@ -1,0 +1,2 @@
+# spring.factories 功能在 Spring Boot 3 会被移除（即使依赖包内的自动配置失效），需要手动引入
+org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration
