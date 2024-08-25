@@ -1,4 +1,4 @@
-package com.chenmeng.train.business.constant.enums;
+package com.chenmeng.train.business.enums;
 
 import lombok.Getter;
 

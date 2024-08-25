@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.chenmeng.train.business.enums.ConfirmOrderStatusEnum;
 import com.chenmeng.train.business.enums.RocketMQTopicEnum;
 import com.chenmeng.train.business.mapper.ConfirmOrderMapper;
@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -34,7 +35,6 @@ public class BeforeConfirmOrderService {
     private final SkTokenService skTokenService;
     private final RocketMQTemplate rocketMQTemplate;
     private final ConfirmOrderService confirmOrderService;
-    ;
 
     @SentinelResource(value = "beforeDoConfirm", blockHandler = "beforeDoConfirmBlock")
     public Long beforeDoConfirm(ConfirmOrderDoDTO req) {
@@ -75,11 +75,12 @@ public class BeforeConfirmOrderService {
             confirmOrderMapper.insert(confirmOrder);
 
             // 发送MQ排队购票
+            req.setLogId(MDC.get("LOG_ID"));
             String reqJson = JSON.toJSONString(req);
             LOG.info("排队购票，发送mq开始，消息：{}", reqJson);
             rocketMQTemplate.convertAndSend(RocketMQTopicEnum.CONFIRM_ORDER.getCode(), reqJson);
             LOG.info("排队购票，发送mq结束");
-            confirmOrderService.doConfirm(req);
+            // 返回id，方便前端模态框展示确认订单id，完善排队购票功能
             id = confirmOrder.getId();
         }
         return id;

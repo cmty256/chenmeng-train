@@ -5,7 +5,7 @@ spring:
   # 注册中心的名字
   application:
     name: business
-  # 启动环境，nacos会根据环境读不同的配置dataId：member-dev.yaml
+  # 启动环境，nacos会根据环境读不同的配置dataId：business-dev.yaml
   profiles:
     active: dev
   cloud:

@@ -407,6 +407,7 @@ export default defineComponent({
     // 定时查询订单结果/排队数量
     const queryLineCount = () => {
       confirmOrderLineCount.value = -1;
+      // 定时器函数 setInterval，这里是500毫秒执行一次
       queryLineCountInterval = setInterval(function () {
         axios.get("/business/confirm-order/query-line-count/" + confirmOrderId.value).then((response) => {
           let data = response.data;

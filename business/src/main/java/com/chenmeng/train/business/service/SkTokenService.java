@@ -5,7 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.chenmeng.train.business.constant.enums.RedisKeyPreEnum;
+import com.chenmeng.train.business.enums.RedisKeyPreEnum;
 import com.chenmeng.train.business.mapper.SkTokenMapper;
 import com.chenmeng.train.business.mapper.custom.SkTokenMapperCust;
 import com.chenmeng.train.business.model.dto.SkTokenQueryDTO;
