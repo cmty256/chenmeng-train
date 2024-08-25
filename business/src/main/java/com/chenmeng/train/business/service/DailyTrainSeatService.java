@@ -9,11 +9,13 @@ import cn.hutool.core.util.StrUtil;
 import com.chenmeng.train.business.mapper.DailyTrainSeatMapper;
 import com.chenmeng.train.business.model.dto.DailyTrainSeatQueryDTO;
 import com.chenmeng.train.business.model.dto.DailyTrainSeatSaveDTO;
+import com.chenmeng.train.business.model.dto.SeatSellDTO;
 import com.chenmeng.train.business.model.entity.DailyTrainSeat;
 import com.chenmeng.train.business.model.entity.DailyTrainSeatExample;
 import com.chenmeng.train.business.model.entity.TrainSeat;
 import com.chenmeng.train.business.model.entity.TrainStation;
 import com.chenmeng.train.business.model.vo.DailyTrainSeatQueryVO;
+import com.chenmeng.train.business.model.vo.SeatSellVO;
 import com.chenmeng.train.common.resp.PageResp;
 import com.chenmeng.train.common.util.SnowUtil;
 import com.github.pagehelper.PageHelper;
@@ -161,5 +163,25 @@ public class DailyTrainSeatService {
                 .andTrainCodeEqualTo(trainCode)
                 .andCarriageIndexEqualTo(carriageIndex);
         return dailyTrainSeatMapper.selectByExample(example);
+    }
+
+    /**
+     * 查询某日某车次的所有座位
+     */
+    public List<SeatSellVO> querySeatSell(SeatSellDTO dto) {
+        Date date = dto.getDate();
+        String trainCode = dto.getTrainCode();
+        LOG.info("查询日期【{}】车次【{}】的座位销售信息", DateUtil.formatDate(date), trainCode);
+
+        DailyTrainSeatExample dailyTrainSeatExample = new DailyTrainSeatExample();
+        dailyTrainSeatExample.setOrderByClause("`carriage_index` asc, carriage_seat_index asc");
+        dailyTrainSeatExample.createCriteria()
+                .andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode);
+
+        return BeanUtil.copyToList(
+                dailyTrainSeatMapper.selectByExample(dailyTrainSeatExample),
+                SeatSellVO.class
+        );
     }
 }

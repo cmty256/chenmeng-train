@@ -16,6 +16,7 @@
       <template v-if="column.dataIndex === 'operation'">
         <a-space>
           <a-button type="primary" @click="toOrder(record)" :disabled="isExpire(record)">{{isExpire(record) ? "过期" : "预订"}}</a-button>
+          <!--路由页面参数传递的写法-->
           <router-link :to="{
             path: '/seat',
             query: {
