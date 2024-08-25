@@ -1,6 +1,7 @@
 <template>
   <p>
     <a-space>
+      <!--绑定函数disabledDate，只允许购买两周内的车次，不能选择今天以前及两周以后的日期-->
       <a-date-picker v-model:value="params.date" valueFormat="YYYY-MM-DD" :disabled-date="disabledDate" placeholder="请选择日期"></a-date-picker>
       <station-select-view v-model="params.start" width="200px"></station-select-view>
       <station-select-view v-model="params.end" width="200px"></station-select-view>
@@ -15,6 +16,7 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
         <a-space>
+          <!--当前时间已过车次出发时间的火车，不能选-->
           <a-button type="primary" @click="toOrder(record)" :disabled="isExpire(record)">{{isExpire(record) ? "过期" : "预订"}}</a-button>
           <!--路由页面参数传递的写法-->
           <router-link :to="{
@@ -289,7 +291,7 @@ export default defineComponent({
       });
     };
 
-    // 不能选择今天以前及两周以后的日期
+    // 不能选择今天以前及两周以后的日期（参照官方的日期控件示例代码来写）
     const disabledDate = current => {
       return current && (current <= dayjs().add(-1, 'day') || current > dayjs().add(14, 'day'));
     };
