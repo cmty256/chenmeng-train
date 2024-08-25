@@ -1,4 +1,4 @@
-package com.chenmeng.train.business.controller.web;
+package com.chenmeng.train.business.controller;
 
 import com.chenmeng.train.business.model.dto.DailyTrainTicketQueryDTO;
 import com.chenmeng.train.business.model.vo.DailyTrainTicketQueryVO;

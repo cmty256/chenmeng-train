@@ -1,4 +1,4 @@
-package com.chenmeng.train.business.controller.web;
+package com.chenmeng.train.business.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
