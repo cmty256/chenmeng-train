@@ -30,6 +30,11 @@
           <usergroup-add-outlined /> &nbsp; 座位销售图
         </router-link>
       </a-menu-item>
+      <a-menu-item key="/admin">
+        <router-link to="/admin">
+          <desktop-outlined /> &nbsp; 关于控台管理
+        </router-link>
+      </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>

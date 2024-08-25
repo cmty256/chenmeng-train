@@ -32,6 +32,9 @@ const routes = [{
     }, {
         path: 'seat',
         component: () => import('../views/main/seat.vue')
+    }, {
+        path: 'admin',
+        component: () => import('../views/main/admin.vue')
     }]
 }, {
     // 根路由, 访问根域名的时候会重定向到欢迎页
